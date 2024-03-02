@@ -1,0 +1,46 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "ng-ckeditor@0.2.1",
+      "destination": "Assets/Admin/Libs/NgCkEditor/"
+    },
+    {
+      "library": "angular.js@1.8.3",
+      "destination": "wwwroot/lib/angular.js/"
+    },
+    {
+      "library": "angular-ui-router@1.1.0",
+      "destination": "wwwroot/lib/angular-ui-router/"
+    },
+    {
+      "library": "angular-messages@1.8.3",
+      "destination": "wwwroot/lib/angular-messages/"
+    },
+    {
+      "library": "angular-local-storage@0.7.1",
+      "destination": "wwwroot/lib/angular-local-storage/"
+    },
+    {
+      "library": "angular-loading-bar@0.9.0",
+      "destination": "wwwroot/lib/angular-loading-bar/"
+    },
+    {
+      "library": "angular-animate@1.8.3",
+      "destination": "wwwroot/lib/angular-animate/"
+    },
+    {
+      "library": "bootbox.js@6.0.0",
+      "destination": "wwwroot/lib/bootbox.js/"
+    },
+    {
+      "library": "angular-toastr@2.1.1",
+      "destination": "wwwroot/lib/angular-toastr/"
+    },
+    {
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/"
+    }
+  ]
+}

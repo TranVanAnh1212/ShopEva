@@ -1,0 +1,68 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="ShopEva - web bán đồ dành cho phái đẹp">
+    <meta name="author" content="Trần Văn Anh"/>
+
+    <title>Admin - Dashboard</title>
+
+    <!-- Custom fonts for this template-->
+    <link href="~/lib/fontawesome-pro-6.5.1-web/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"/>
+
+    <!-- Custom styles for this template-->
+    <link href="~/css/admin_css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/lib/angular-toastr/angular-toastr.min.css" rel="stylesheet" />
+    <link href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="~/lib/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet"/>
+
+    <base href="/Dashboard"/>
+</head>
+
+<body id="page-top" ng-app="ShopEva" ng-controller="RootController">
+    <div ui-view></div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="~/lib/vendor/jquery/jquery.min.js"></script>
+    <script src="~/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="~/lib/fontawesome-pro-6.5.1-web/js/all.min.js"></script>
+    <script src="~/lib/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="~/js/admin_js/sb-admin-2.min.js"></script>
+
+    <script src="~/lib/angular.js/angular.min.js"></script>
+    <script src="~/lib/angular-ui-router/angular-ui-router.min.js"></script>
+    <script src="~/lib/angular-toastr/angular-toastr.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+    <script src="~/lib/angular-animate/angular-animate.min.js"></script>
+    <script src="~/lib/angular-loading-bar/loading-bar.min.js"></script>
+    <script src="~/lib/angular-local-storage/angular-local-storage.min.js"></script>
+    <script src="~/lib/angular-messages/angular-messages.min.js"></script>
+
+
+    <script src="~/Clients/Shares/Modules/ShopEva.Common.js"></script>
+    <script src="~/Clients/Components/ProductCategory/ProductCategory.module.js"></script>
+    <script src="~/Clients/app.js"></script>
+    <script src="~/Clients/Components/AdminHome/RootController.js"></script>
+
+    <script src="~/Clients/Shares/Services/CRUDService.js"></script>
+    <script src="~/Clients/Shares/Services/NotifyService.js"></script>
+
+    <script src="~/Clients/Components/AdminHome/DashboardController.js"></script>
+    <script src="~/Clients/Components/ProductCategory/ProductCategoryListController.js"></script>
+</body>
+
+</html>
+

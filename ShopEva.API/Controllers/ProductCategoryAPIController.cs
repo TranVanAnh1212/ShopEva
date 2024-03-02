@@ -132,7 +132,7 @@ namespace ShopEva.API.Controllers
             }
         }
 
-        [HttpPut("addnew")]
+        [HttpPut("update")]
         public IActionResult Put(ProductCategoryViewModel viewModel)
         {
             try
@@ -147,6 +147,38 @@ namespace ShopEva.API.Controllers
                 _productCategoryService.SaveChanged();
 
                 var res = _mapper.Map<ProductCategoryViewModel>(pc);
+
+                return Ok(new RequestMessage
+                {
+                    Success = true,
+                    Result = res
+                });
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return BadRequest(new RequestMessage
+                {
+                    Success = false,
+                    Error = new ErrorInfor
+                    {
+                        Code = 400,
+                        Message = ex.Message
+                    }
+                });
+            }
+        }
+
+
+        [HttpDelete("delete/{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            try
+            {
+                var old =  _productCategoryService.Delete(id);
+                _productCategoryService.SaveChanged();
+
+                var res = _mapper.Map<ProductCategoryViewModel>(old);
 
                 return Ok(new RequestMessage
                 {
