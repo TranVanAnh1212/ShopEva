@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEva.Web", "ShopEva.Web\ShopEva.Web.csproj", "{1A335AA5-14D4-4EAE-9C33-77F2E4165CBB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{08D77F8C-BDFD-435C-ABCA-EDD1D293A370} = {08D77F8C-BDFD-435C-ABCA-EDD1D293A370}
+		{26D0DEB7-B573-46D4-A1C1-25713C576B0B} = {26D0DEB7-B573-46D4-A1C1-25713C576B0B}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Models", "Models", "{2E6DB5E1-909F-47B2-AE0F-FD1773EC8614}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "APIs", "APIs", "{CDBA8E44-1BA6-40B2-AE76-2FC7CF1C5062}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEva.Models", "ShopEva.Models\ShopEva.Models.csproj", "{08D77F8C-BDFD-435C-ABCA-EDD1D293A370}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEva.Data", "ShopEva.Data\ShopEva.Data.csproj", "{26D0DEB7-B573-46D4-A1C1-25713C576B0B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEva.API", "ShopEva.API\ShopEva.API.csproj", "{B374D32B-6420-4AEB-A791-71F8564C15FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{0F6BB3B1-2088-4B14-9693-F35AF5A31781}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopEva.Services", "ShopEva.Services\ShopEva.Services.csproj", "{CBA726DC-D81E-4654-A071-55A471343BC9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1A335AA5-14D4-4EAE-9C33-77F2E4165CBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A335AA5-14D4-4EAE-9C33-77F2E4165CBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A335AA5-14D4-4EAE-9C33-77F2E4165CBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A335AA5-14D4-4EAE-9C33-77F2E4165CBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08D77F8C-BDFD-435C-ABCA-EDD1D293A370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08D77F8C-BDFD-435C-ABCA-EDD1D293A370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08D77F8C-BDFD-435C-ABCA-EDD1D293A370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08D77F8C-BDFD-435C-ABCA-EDD1D293A370}.Release|Any CPU.Build.0 = Release|Any CPU
+		{26D0DEB7-B573-46D4-A1C1-25713C576B0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{26D0DEB7-B573-46D4-A1C1-25713C576B0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{26D0DEB7-B573-46D4-A1C1-25713C576B0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{26D0DEB7-B573-46D4-A1C1-25713C576B0B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B374D32B-6420-4AEB-A791-71F8564C15FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B374D32B-6420-4AEB-A791-71F8564C15FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B374D32B-6420-4AEB-A791-71F8564C15FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B374D32B-6420-4AEB-A791-71F8564C15FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBA726DC-D81E-4654-A071-55A471343BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBA726DC-D81E-4654-A071-55A471343BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBA726DC-D81E-4654-A071-55A471343BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBA726DC-D81E-4654-A071-55A471343BC9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{08D77F8C-BDFD-435C-ABCA-EDD1D293A370} = {2E6DB5E1-909F-47B2-AE0F-FD1773EC8614}
+		{26D0DEB7-B573-46D4-A1C1-25713C576B0B} = {2E6DB5E1-909F-47B2-AE0F-FD1773EC8614}
+		{B374D32B-6420-4AEB-A791-71F8564C15FD} = {CDBA8E44-1BA6-40B2-AE76-2FC7CF1C5062}
+		{CBA726DC-D81E-4654-A071-55A471343BC9} = {0F6BB3B1-2088-4B14-9693-F35AF5A31781}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3DABC7CB-798E-4D73-A086-A94FC0D3ACDE}
+	EndGlobalSection
+EndGlobal
