@@ -10,17 +10,18 @@ namespace ShopEva.Models.Model
     public class ApplicationUser : IdentityUser
     {
         [MaxLength(256)]
-        public string Address { get; set; }
+        public string? Address { get; set; }
         public DateTime? Birthday { get; set; }
         [MaxLength(256)]
-        public string Fullname { get; set; }
+        public string? Fullname { get; set; }
 
-        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
-        {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
-            return userIdentity;
-        }
+        //public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
+        //{
+        //    // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+        //    var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+
+        //    // Add custom user claims here
+        //    return userIdentity;
+        //}
     }
 }

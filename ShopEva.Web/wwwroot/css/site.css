@@ -1,14 +1,22 @@
+:root {
+    --bs-secondary-rgb: 108, 117, 125;
+}
+
 html {
   font-size: 14px;
 }
 
 @media (min-width: 768px) {
   html {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+.btn:focus, 
+.btn:active:focus, 
+.btn-link.nav-link:focus, 
+.form-control:focus, 
+.form-check-input:focus {
   box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
@@ -18,5 +26,55 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+
+}
+
+.pagerDirective .active {
+    padding: 0.25rem 0.5rem;
+    font-size: .875rem;
+    line-height: 1.5;
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.selected-item {
+    background-color: #9fcbe875;
+}
+
+
+.topbar.navbar-light .navbar-nav .nav-item .nav-link {
+     color: #333; 
+}
+
+
+
+/**/
+
+
+.select2 > .select2-choice.ui-select-match {
+    /* Because of the inclusion of Bootstrap */
+    height: 29px;
+}
+
+.selectize-control > .selectize-dropdown {
+    top: 36px;
+}
+/* Some additional styling to demonstrate that append-to-body helps achieve the proper z-index layering. */
+.select-box {
+    background: #fff;
+    position: relative;
+    z-index: 1;
+}
+
+.alert-info.positioned {
+    margin-top: 1em;
+    position: relative;
+    z-index: 10000; /* The select2 dropdown has a z-index of 9999 */
+}
+
+/* Angular loading bar */
+#loading-bar .bar {
+    color: red;
+    background: red;
+    height: 0.2rem;
 }

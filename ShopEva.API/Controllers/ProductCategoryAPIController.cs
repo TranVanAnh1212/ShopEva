@@ -1,13 +1,12 @@
 ﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using ShopEva.Data.Contexts;
 using ShopEva.Data.ViewModels;
 using ShopEva.Models.Model;
 using ShopEva.Services.IServices;
 using ShopEva.Services.RequestMessage;
 using ShopEva.Services.Extention;
 using ShopExample.Web.Infrastructure.Core;
+using Newtonsoft.Json.Linq;
 
 namespace ShopEva.API.Controllers
 {
@@ -26,11 +25,13 @@ namespace ShopEva.API.Controllers
         }
 
         [HttpGet("getall")]
-        public IActionResult Get(string? keyword, int status = 1, int page = 1, int page_size = 1)
+        public IActionResult Get(string? keyword, string? order_by, int status, int page = 1, string order_type = "ASC")
         {
             try
             {
-                var product_Category_List = _productCategoryService.GetAll(status, keyword);
+                int page_size = 20;
+
+                var product_Category_List = _productCategoryService.GetAll(status, keyword, order_by, order_type);
 
                 var res = _mapper.Map<List<ProductCategoryViewModel>>(product_Category_List);
 
@@ -39,7 +40,7 @@ namespace ShopEva.API.Controllers
                 var res_paginatedSet = new PaginationSet<ProductCategoryViewModel>()
                 {
                     Page = page,
-                    TotalCount = res_paginated.Count(),
+                    TotalCount = res_paginated.TotalCount,
                     TotalPage = res_paginated.TotalPages,
                     Data = res_paginated
                 };
@@ -48,6 +49,36 @@ namespace ShopEva.API.Controllers
                 {
                     Success = true,
                     Result = res_paginatedSet
+                });
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return BadRequest(new RequestMessage
+                {
+                    Success = false,
+                    Error = new ErrorInfor
+                    {
+                        Code = 400,
+                        Message = ex.Message
+                    }
+                });
+            }
+        }
+
+        [HttpGet("get_parent")]
+        public async Task<IActionResult> Get(Guid? id)
+        {
+            try
+            {
+                var product_Category_List = await _productCategoryService.GetParentAsync(id);
+
+                var res = _mapper.Map<List<ProductCategoryViewModel>>(product_Category_List);
+
+                return Ok(new RequestMessage
+                {
+                    Success = true,
+                    Result = res
                 });
             }
             catch (Exception ex)
@@ -139,7 +170,6 @@ namespace ShopEva.API.Controllers
             {
                 var pc = _productCategoryService.GetById(viewModel.ID);
                 pc.ProductCategoryMap(viewModel);
-                pc.ID = Guid.NewGuid();
                 pc.ModifiedDate = DateTime.UtcNow;
                 pc.ModifiedBy = "TranVanAnh";
 
@@ -170,20 +200,24 @@ namespace ShopEva.API.Controllers
         }
 
 
-        [HttpDelete("delete/{id}")]
-        public IActionResult Delete(Guid id)
+        [HttpDelete("delete")]
+        public IActionResult Delete(string productCategoryJSON)
         {
             try
             {
-                var old =  _productCategoryService.Delete(id);
-                _productCategoryService.SaveChanged();
+                // [{"ID":"e1c1ad80-c373-4707-b13e-e1966f3e7748","Name":"Demo post 1"},{"ID":"e1c1ad80-d373-4907-b13e-e1966f3e7748","Name":"Demo post 2"}]
 
-                var res = _mapper.Map<ProductCategoryViewModel>(old);
+                var myObject = System.Text.Json.JsonSerializer.Deserialize<List<ProductCategoryJSONViewModel>>(productCategoryJSON);
+
+                foreach (var i in myObject)
+                    _productCategoryService.Delete(i.ID);
+
+                _productCategoryService.SaveChanged();
 
                 return Ok(new RequestMessage
                 {
                     Success = true,
-                    Result = res
+                    Result = myObject.Count
                 });
             }
             catch (Exception ex)

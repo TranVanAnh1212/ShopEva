@@ -4,7 +4,7 @@
     CRUDService.$inject = ['$http', 'NotifyService'];
 
     function CRUDService($http, NotifyService) {
-        var baseUrl = 'https://localhost:44398/'
+        var baseUrl = 'https://localhost:7075'
 
         return {
             get: get,
@@ -15,7 +15,7 @@
 
         function post(url, data, success, failure) {
             //authenticationService.setHeader()
-            $http.post(url, data)
+            $http.post(baseUrl + url, data)
                 .then(
                     function (result) {
                         success(result)
@@ -34,7 +34,7 @@
 
         function put(url, data, success, failure) {
             //authenticationService.setHeader()
-            $http.put(url, data)
+            $http.put(baseUrl + url, data)
                 .then(function (result) {
                     //console.log(result.data)
                     success(result);
@@ -52,7 +52,7 @@
 
         function del(url, data, success, failure) {
             //authenticationService.setHeader()
-            $http.delete(url, data)
+            $http.delete(baseUrl + url, data)
                 .then(
                     function (result) {
                         success(result)

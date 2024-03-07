@@ -10,6 +10,11 @@ namespace ShopEva.Data.IRepositories
 {
     public interface IProductCategoryRepository : IRepository<ProductCategory>
     {
-
+        /// <summary>
+        /// Lấy ra các product category có thể làm cha
+        /// </summary>
+        /// <param name="id">category hiện tại</param>
+        /// <returns></returns>
+        Task<IEnumerable<ProductCategory>> GetParentAsync(Guid? id);
     }
 }

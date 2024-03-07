@@ -12,7 +12,8 @@ namespace ShopEva.Services.IServices
         ProductCategory Add(ProductCategory pc);
         ProductCategory Delete(Guid id);
         void Update(ProductCategory pc);
-        IEnumerable<ProductCategory> GetAll(int status, string? keyword);
+        Task<IEnumerable<ProductCategory>> GetParentAsync(Guid? id);
+        IEnumerable<ProductCategory> GetAll(int status, string? keyword, string? order_by, string? order_type);
         Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword);
         Task<IEnumerable<ProductCategory>> GetMany(int status);
         Task<IEnumerable<ProductCategory>> GetManyAsync(int status);

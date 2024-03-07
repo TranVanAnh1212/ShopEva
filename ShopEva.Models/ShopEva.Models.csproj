@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Model\ApplicationUser.cs" />
+    <Compile Remove="Model\ApplicationRole.cs" />
   </ItemGroup>
 
   <ItemGroup>

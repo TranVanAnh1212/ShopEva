@@ -32,14 +32,51 @@ namespace ShopEva.Services.Services
             return _productCategoryRepository.Delete(id);
         }
 
-        public IEnumerable<ProductCategory> GetAll( int status, string? keyword)
+        public IEnumerable<ProductCategory> GetAll(int status, string? keyword, string? order_by, string? order_type)
         {
+            IEnumerable<ProductCategory> product_category_list;
+
             if (!string.IsNullOrEmpty(keyword))
             {
-                return _productCategoryRepository.GetMulti(x => x.Name.Equals(keyword) && x.Status == status);
+                product_category_list = _productCategoryRepository.GetMulti(x => x.Name.Equals(keyword));
+            }
+            else
+                product_category_list = _productCategoryRepository.GetAll();
+
+            if (status >= 0)
+            {
+                product_category_list = product_category_list.Where(x => x.Status == status);
             }
 
-            return _productCategoryRepository.GetMulti(x => x.Status == status); 
+            switch (order_by)
+            {
+                case "Name":
+                    switch (order_type)
+                    {
+                        case "ASC":
+                            product_category_list = product_category_list.OrderBy(x => x.Name);
+                            break;
+                        case "DESC":
+                            product_category_list = product_category_list.OrderByDescending(x => x.Name);
+                            break;
+                    }
+
+                    break;
+                default:
+                    switch (order_type)
+                    {
+                        case "ASC":
+                            product_category_list = product_category_list.OrderBy(x => x.Name);
+                            break;
+                        case "DESC":
+                            product_category_list = product_category_list.OrderByDescending(x => x.Name);
+                            break;
+                    }
+                    break;
+
+            }
+
+            return product_category_list;
         }
 
         public async Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword)
@@ -65,6 +102,11 @@ namespace ShopEva.Services.Services
         public Task<IEnumerable<ProductCategory>> GetManyAsync(int status)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<IEnumerable<ProductCategory>> GetParentAsync(Guid? id)
+        {
+            return await _productCategoryRepository.GetParentAsync(id);
         }
 
         public void SaveChanged()

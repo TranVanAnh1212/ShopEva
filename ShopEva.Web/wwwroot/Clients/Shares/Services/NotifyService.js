@@ -19,27 +19,25 @@
             "hideMethod": "fadeOut"
         }
 
-        function Success(success) {
-            toastr.success(success);
-        }
-
-        function Error(error) {
-            toastr.error(error);
-        }
-
-        function Warning(warning) {
-            toastr.warning(warning);
-        }
-
-        function Info(info) {
-            toastr.info(info);
+        function Shows(type, value) {
+            switch (type) {
+                case "error":
+                    if (Array.isArray(value)) {
+                        value.forEach((item) => {
+                            toastr[type](value, type);
+                        });
+                    } else {
+                        toastr[type](value, type);
+                    }
+                    break;
+                default:
+                    toastr[type](value, type);
+                    break;
+            }
         }
 
         return {
-            Success: Success,
-            Error: Error,
-            Warning: Warning,
-            Info: Info
+            Shows: Shows
         }
     }
 })(angular.module('ShopEva.Common'))

@@ -1,13 +1,20 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using ShopEva.API.AutoMapper;
 using ShopEva.Data.Contexts;
 using ShopEva.Data.Infrastructure;
 using ShopEva.Data.IRepositories;
 using ShopEva.Data.Repositories;
+using ShopEva.Models.Model;
 using ShopEva.Services.IServices;
 using ShopEva.Services.Services;
+using System.Text;
 
 namespace ShopEva.API
 {
@@ -40,13 +47,17 @@ namespace ShopEva.API
                 });
             });
 
-            //builder.Services.AddDbContext<ShopEvaDbContext>(option =>
-            //{
-            //    option.UseNpgsql(builder.Configuration.GetConnectionString("ShopEvaDbContext"));
-            //});
+            builder.Services.AddDbContext<ShopEvaDbContext>(option =>
+            {
+                option.UseNpgsql(builder.Configuration.GetConnectionString("ShopEvaDbContext"));
+            });
+
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ShopEvaDbContext>()
+                .AddDefaultTokenProviders();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-            
+
             var mapperConfig = new MapperConfiguration(mc =>
             {
                 mc.AddProfile(new AutoMapperProfile());
@@ -61,9 +72,32 @@ namespace ShopEva.API
             builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
             builder.Services.AddScoped<IErrorRepository, ErrorRepository>();
             builder.Services.AddScoped<IErrorService, ErrorService>();
+            builder.Services.AddScoped<IStatusRepository, StatusRepository>();
+            builder.Services.AddScoped<IStatusService, StatusService>();
             builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
             builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             #endregion
+
+            builder.Services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(opt =>
+            {
+                opt.SaveToken = true;
+                opt.RequireHttpsMetadata = false;
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidAudience = builder.Configuration["Identity_Jwt:ValidAudience"],
+                    ValidIssuer = builder.Configuration["Identity_Jwt:ValidIssuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Identity_Jwt:Secret"]))
+                };
+            });
+
 
             builder.Services.AddMvc();
             builder.Services.AddHttpClient();
@@ -91,7 +125,6 @@ namespace ShopEva.API
                        .AllowAnyHeader();
             });
 
-            app.MapControllers();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -100,7 +133,7 @@ namespace ShopEva.API
             app.UseAuthentication();
             app.UseAuthorization();
 
-
+            app.MapControllers();
 
             app.Run();
         }
@@ -113,6 +146,6 @@ namespace ShopEva.API
         //                    webBuilder.UseStartup<Startup>();
         //                });
         //}
-        
+
     }
 }

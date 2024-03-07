@@ -43,6 +43,7 @@
   <ItemGroup>
     <None Include="wwwroot\Clients\app.js" />
     <None Include="wwwroot\Clients\Components\AdminHome\RootController.js" />
+    <None Include="wwwroot\Clients\Shares\Directives\PagerDirective.js" />
     <None Include="wwwroot\img\undraw_posting_photo.svg" />
     <None Include="wwwroot\js\admin_js\demo\chart-area-demo.js" />
     <None Include="wwwroot\js\admin_js\demo\chart-bar-demo.js" />

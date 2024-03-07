@@ -9,6 +9,7 @@ namespace ShopEva.API.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<ProductCategory, ProductCategoryViewModel>();
+            CreateMap<Sys_Status, StatusViewModel>();
         }
     }
 }

@@ -163,7 +163,7 @@ namespace ShopEva.Data.Infrastructure
             return await dataContext.Set<T>().ToArrayAsync();
         }
 
-        public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> where, string includes)
+        public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> where, string includes = null)
         {
             return await dbSet.Where(where).ToListAsync();
         }

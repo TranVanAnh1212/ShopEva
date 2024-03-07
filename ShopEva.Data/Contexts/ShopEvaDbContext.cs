@@ -1,12 +1,18 @@
 ﻿
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using ShopEva.Models.Model;
 
 namespace ShopEva.Data.Contexts
 {
-    public class ShopEvaDbContext : DbContext
+    public class ShopEvaDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ShopEvaDbContext(DbContextOptions<ShopEvaDbContext> options) : base(options)
+        {
+
+        }
+
+        public ShopEvaDbContext() { }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
