@@ -48,7 +48,7 @@ namespace ShopEva.Services.Services
                 product_category_list = product_category_list.Where(x => x.Status == status);
             }
 
-            #region ---- ====  Order  ==== ----
+            #region ====  Order  ====
             //switch (order_by)
             //{
             //    case "Name":
