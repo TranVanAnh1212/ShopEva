@@ -48,32 +48,40 @@ namespace ShopEva.Services.Services
                 product_category_list = product_category_list.Where(x => x.Status == status);
             }
 
-            switch (order_by)
+            #region ---- ====  Order  ==== ----
+            //switch (order_by)
+            //{
+            //    case "Name":
+            //        switch (order_type)
+            //        {
+            //            case "ASC":
+            //                product_category_list = product_category_list.OrderBy(x => x.Name);
+            //                break;
+            //            case "DESC":
+            //                product_category_list = product_category_list.OrderByDescending(x => x.Name);
+            //                break;
+            //        }
+
+            //        break;
+            //    default:
+            //        switch (order_type)
+            //        {
+            //            case "ASC":
+            //                product_category_list = product_category_list.OrderBy(x => x.Name);
+            //                break;
+            //            case "DESC":
+            //                product_category_list = product_category_list.OrderByDescending(x => x.Name);
+            //                break;
+            //        }
+            //        break;
+            //}
+            #endregion
+
+            int index = 1;
+            foreach (var item in product_category_list)
             {
-                case "Name":
-                    switch (order_type)
-                    {
-                        case "ASC":
-                            product_category_list = product_category_list.OrderBy(x => x.Name);
-                            break;
-                        case "DESC":
-                            product_category_list = product_category_list.OrderByDescending(x => x.Name);
-                            break;
-                    }
-
-                    break;
-                default:
-                    switch (order_type)
-                    {
-                        case "ASC":
-                            product_category_list = product_category_list.OrderBy(x => x.Name);
-                            break;
-                        case "DESC":
-                            product_category_list = product_category_list.OrderByDescending(x => x.Name);
-                            break;
-                    }
-                    break;
-
+                item.Index = index;
+                index++;
             }
 
             return product_category_list;

@@ -3,9 +3,9 @@
 (function (app) {
     app.controller('ProductCategoryOverviewController', ProductCategoryOverviewController);
 
-    ProductCategoryOverviewController.$inject = ['$scope', '$state', '$stateParams', 'CRUDService', 'NotifyService'];
+    ProductCategoryOverviewController.$inject = ['$scope', '$state', '$stateParams', 'CRUDService', 'NotifyService', 'CommonService'];
 
-    function ProductCategoryOverviewController($scope, $state, $stateParams, CRUDService, NotifyService) {
+    function ProductCategoryOverviewController($scope, $state, $stateParams, CRUDService, NotifyService, CommonService) {
         var vm = $scope;
 
         vm.ProductCategoryID = $stateParams.id;
@@ -13,6 +13,7 @@
         vm.AddAction = true;
         vm.EditMode = false;
         vm.AddAction = true;
+        vm.Saved = false;
         vm.ProductCategory = {};
         vm.ProductCategoryGlobal;
         vm.ParentList;
@@ -22,13 +23,23 @@
         vm.submitted = false;
 
         vm.SaveAdd = SaveAdd;
-        vm.SaveEdit = SaveEdit;
+        vm.Edit = Edit;
         vm.Reload = Reload;
+        vm.Close = Close;
+        vm.GetSEOTitle = GetSEOTitle;
 
-        if (vm.ProductCategoryID) {
-            GetByID(vm.ProductCategoryID);
-            vm.AddAction = false;
+        function GetSEOTitle() {
+            vm.ProductCategory.alias = CommonService.GetSEOTitle(vm.ProductCategory.name);
         }
+
+        (function Init() {
+            if (vm.ProductCategoryID) {
+                GetByID(vm.ProductCategoryID);
+                vm.AddAction = false;
+                vm.EditMode = false;
+                vm.Saved = true;
+            }
+        })();
 
         function GetByID(id) {
             var config = {
@@ -39,12 +50,18 @@
 
             CRUDService.get('/api/ProductCategoryAPI/getbyid', config, (result) => {
                 console.log(result);
+                var value = result.data;
+
+                vm.ProductCategory = value.result;
+                vm.ProductCategoryID = value.result.id;
             }, (error) => {
                 NotifyService.Shows('error', 'Cannot get record');
             });
         }
 
         function SaveAdd(invalid) {
+            debugger;
+
             vm.submitted = invalid;
 
             if (vm.submitted)
@@ -53,30 +70,64 @@
             vm.ProductCategory.parentID = !vm.Parent ? null : vm.Parent.id;
             vm.ProductCategory.status = vm.Productcategory_Status.id;
 
-            CRUDService.post('/api/ProductCategoryAPI/addnew', vm.ProductCategory, (result) => {
-                console.log(result);
-                vm.ProductCategoryGlobal = result.data.result;
-                vm.ProductCategory = angular.copy(vm.ProductCategoryGlobal);
-                vm.AddAction = false;
-                vm.EditMode = false;
-                vm.submitted = false;
-                NotifyService.Shows('success', 'Add new successfully.');
-            }, (err) => {
-                console.log(err);
-                NotifyService.Shows('error', 'Cannot create, some wrong...');
-            });
+            if (vm.AddAction)
+                CRUDService.post('/api/ProductCategoryAPI/addnew', vm.ProductCategory, (result) => {
+                    console.log(result);
+                    vm.AddAction = false;
+                    vm.EditMode = false;
+                    vm.submitted = false;
+                    vm.Saved = true;
+
+                    vm.ProductCategoryGlobal = result.data.result;
+                    vm.ProductCategory = angular.copy(vm.ProductCategoryGlobal);
+                    vm.ProductCategoryID = vm.ProductCategory.id;
+
+                    NotifyService.Shows('success', 'Add new successfully.');
+                }, (err) => {
+                    console.log(err);
+                    NotifyService.Shows('error', 'Cannot create, some wrong...');
+                });
+            else
+                CRUDService.put('/api/ProductCategoryAPI/update', vm.ProductCategory, (result) => {
+                    console.log(result);
+                    var value = result.data;
+                    if (value.result.id === vm.ProductCategoryID) {
+
+                        vm.AddAction = false;
+                        vm.EditMode = false;
+                        vm.submitted = false;
+                        vm.Saved = true;
+
+                        vm.ProductCategoryGlobal = value.result;
+                        vm.ProductCategory = angular.copy(vm.ProductCategoryGlobal);
+                        vm.ProductCategoryID = vm.ProductCategory.id;
+
+                        NotifyService.Shows('success', 'Update product category successfully!');
+                    }
+                }, (err) => {
+                    NotifyService.Shows('error', 'Cannot create, some wrong...');
+                });
         }
 
 
-        function SaveEdit() {
+        function Edit() {
             vm.EditMode = true;
             vm.AddAction = false;
-
-
+            vm.Saved = false;
         }
 
         function Reload() {
 
+        }
+
+        function Close() {
+            if (vm.EditMode) {
+                //
+                
+
+                $state.go('product_category');
+            }
+            else $state.go('product_category');
         }
 
         function GetStatus() {
@@ -104,7 +155,7 @@
             }
 
             CRUDService.get('/api/ProductCategoryAPI/get_parent', config, (result) => {
-                console.log(result.data);
+                //console.log(result.data);
                 vm.ParentList = result.data.result;
             }, (err) => {
                 NotifyService.Shows('error', 'Cannot get data, an error occurred!');

@@ -12,6 +12,7 @@
 
         // variable
         vm.product_category_list = [];
+        vm.product_category_original = [];
         vm.product_category_list_checked;
         vm.status_list = [];
         vm.totalCount = 0;
@@ -19,9 +20,13 @@
         vm.page = 1;
         vm.keyword = '';
         vm.order_by;
-        vm.status;
+        vm.status = {
+            id: -1,
+            name: 'Tất cả'
+        };
         vm.order_type = 'ASC';
         vm.is_selected_all = false;
+        vm.search_value;
 
         // func
         vm.GetProductCategoryList = GetProductCategoryList;
@@ -34,6 +39,33 @@
         vm.UpdateProductCategory = UpdateProductCategory;
         vm.Improved = Improved;
         vm.Dlb_Select = Dlb_Select;
+        vm.ExportExcel = ExportExcel;
+        vm.TblInternalSearch = TblInternalSearch;
+
+        function TblInternalSearch(col_name) {
+            switch (col_name) {
+                case 'name':
+                    var searched_list = [];
+
+                    if (vm.search_value.name) {
+                        angular.forEach(vm.product_category_list, (item) => {
+                            if (item.name.includes(vm.search_value.name)) {
+                                searched_list.push(item);
+                            }
+                        });
+
+                        vm.product_category_list = searched_list;
+                    }
+                    else {
+                        vm.product_category_list = angular.copy(vm.product_category_original);
+                    }
+                    break;
+            }
+        }
+
+        function ExportExcel() {
+            NotifyService.Shows('info', 'Comming soon ....');
+        }
 
         function Dlb_Select(id) {
             $location.path('/product_category_overview/' + id);
@@ -77,7 +109,7 @@
                 return;
             }
 
-            if (vm.product_category_list_checked.length >1) {
+            if (vm.product_category_list_checked.length > 1) {
                 NotifyService.Shows('error', 'Please choose only one record .... ');
                 return;
             }
@@ -134,19 +166,12 @@
         function ChangeCombobox(type, item) {
             switch (type) {
                 case 'status':
-                    localStorageService.set('prodCategStatus', JSON.stringify(item));
                     GetProductCategoryList(vm.page, item.id);
                     break;
             }
         }
 
         function Reload() {
-            var prodCategStatus= localStorageService.get('prodCategStatus');
-
-            if (prodCategStatus) {
-                vm.status = JSON.parse(prodCategStatus);
-            }
-
             GetProductCategoryList(vm.page, vm.status.id);
             vm.is_selected_all = false;
         }
@@ -173,7 +198,7 @@
                 }
             }
         }, true);
-        
+
         function GetStatus() {
             var config = {
                 params: {
@@ -213,6 +238,7 @@
                     NotifyService.Shows('info', 'Product category empty ...');
                 }
                 else {
+                    vm.product_category_original = value.result.data;
                     vm.product_category_list = value.result.data;
                     vm.page = value.result.page;
                     vm.totalCount = value.result.totalCount;

@@ -21,5 +21,7 @@ namespace ShopEva.Models.Model
         public string? Image { get; set; }
         public int? DisplayOrder { get; set; }
         public bool HomeFlag { get; set; }
+        [NotMapped()]
+        public int Index { get; set; }
     }
 }

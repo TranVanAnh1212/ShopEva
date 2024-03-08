@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShopEva.Data.ViewModels
 {
@@ -24,5 +20,7 @@ namespace ShopEva.Data.ViewModels
         public string? MetaKeyWord { get; set; }
         public string? MetaDescription { get; set; }
         public int Status { get; set; }
+        [NotMapped()]
+        public int Index { get; set; }
     }
 }

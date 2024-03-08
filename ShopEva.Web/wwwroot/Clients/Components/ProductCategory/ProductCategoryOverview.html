@@ -7,36 +7,53 @@
         </li>
     </ul>
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-        <li class="nav-item" ng-show="EditMode">
+    <ul class="navbar-nav ml-auto" ng-if="Saved">
+        <li class="nav-item">
             <a class="nav-link" title="Reload" href="javascript:void(0);" role="button">
                 <i class="fa-light fa-repeat"></i>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" title="Save" href="javascript:void(0);"
-               ng-click="Save('save', frmAddProductcategory.$invalid)" role="button">
-                <i class="fa-light fa-floppy-disk"></i>
+            <a class="nav-link" title="Update" ng-click="Edit()" href="javascript:void(0);" role="button">
+                <i class="fa-light fa-pen-to-square"></i>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" title="Save and add new" href="javascript:void(0);"
-               ng-click="Save('save_add', frmAddProductcategory.$invalid)" role="button">
-                <i class="fa-light fa-floppy-disks"></i>
-            </a>
-        </li>
-
-        <li class="nav-item" ng-show="EditMode">
             <a class="nav-link" title="Duyệt" href="javascript:void(0);" role="button">
                 <i class="fa-light fa-check-to-slot"></i>
             </a>
         </li>
 
         <li class="nav-item">
-            <a class="nav-link text-danger" title="Cancel" href="javascript:void(0);" ui-sref="product_category" role="button">
+            <a class="nav-link text-danger"
+               title="Cancel"
+               ng-click="Close()"
+               href="javascript:void(0);" role="button">
+                <i class="fa-regular fa-xmark-large"></i>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto" ng-if="!Saved">
+        <li class="nav-item">
+            <a class="nav-link" 
+               title="Save" 
+               href="javascript:void(0);"
+               ng-click="SaveAdd(frmAddProductcategory.$invalid)" 
+               role="button">
+                <i class="fa-light fa-floppy-disk"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-danger"
+               title="Cancel"
+               ng-click="Close()"
+               href="javascript:void(0);" 
+               role="button">
                 <i class="fa-regular fa-xmark-large"></i>
             </a>
         </li>
@@ -51,12 +68,12 @@
             <div class="form-group row">
                 <div class="col-sm-6 row">
                     <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Name <span class="text-danger">*</span></label>
+                        <label class="col-sm-12 col-form-label px-0">Name<ng-important /></label>
                         <input ng-model="ProductCategory.name"
                                ng-maxlength="501"
                                required
-                               ng-disabled="!AddAction"
-                               ng-change="getSEOTitle()"
+                               ng-disabled="!EditMode && Saved"
+                               ng-change="GetSEOTitle()"
                                class="form-control"
                                name="name"
                                placeholder="Name product category ...">
@@ -68,13 +85,14 @@
                     </div>
 
                     <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">SEO Title <span class="text-danger">*</span></label>
-                    
+                        <label class="col-sm-12 col-form-label px-0">SEO Title<ng-important /></label>
+
                         <input type="text"
                                required
                                name="alias"
-                               ng-maxlength="501"
-                               ng-disabled="!AddAction"
+                               readonly
+                               ng-maxlength="500"
+                               ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.alias"
                                class="form-control"
                                placeholder="Alias ...">
@@ -101,7 +119,7 @@
                                 id="product_category_overview_add"
                                 name="product_category_overview_add"
                                 ng-model="parentID"
-                                ng-disabled="!AddAction"
+                                ng-disabled="!EditMode && Saved"
                                 ng-options="option.id as option.name for option in ParentList | orderBy: 'name'">
                             <option value="">---- Choose parent category ----</option>
                         </select>
@@ -112,7 +130,7 @@
                         <label class="col-sm-12 col-form-label px-0">Display order</label>
                         <input type="number"
                                name="displayOrder"
-                               ng-disabled="!AddAction"
+                               ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.displayOrder"
                                class="form-control"
                                placeholder="Display order ...">
@@ -122,7 +140,7 @@
                         <label class="col-sm-12 col-form-label px-0">Meta keyword</label>
                         <input type="text"
                                name="metaKeyword"
-                               ng-disabled="!AddAction"
+                               ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.metaKeyWord"
                                class="form-control"
                                placeholder="Meta keyword ...">
@@ -132,7 +150,7 @@
                     <div class="col-sm-12">
                         <label class="col-sm-12 col-form-label px-0">Meta description</label>
                         <textarea ng-model="ProductCategory.metaDescription"
-                                  ng-disabled="!AddAction"
+                                  ng-disabled="!EditMode && Saved"
                                   name="metaDescription"
                                   rows="1"
                                   class="form-control"
@@ -146,7 +164,7 @@
                         <textarea type="text"
                                   name="description"
                                   rows="4"
-                                  ng-disabled="!AddAction"
+                                  ng-disabled="!EditMode && Saved"
                                   ng-model="ProductCategory.description"
                                   class="form-control"
                                   placeholder="Description ..."></textarea>
@@ -164,7 +182,7 @@
                                hidden
                                placeholder="Image ..."
                                accept="image/png, image/jpeg, image/jpg"
-                               ng-disabled="!AddAction"
+                               ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.image"
                                class="form-control"
                                id="inputGroupFile02">
@@ -172,10 +190,10 @@
 
 
                     <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Status <span class="text-danger">*</span></label>
+                        <label class="col-sm-12 col-form-label px-0">Status<ng-important /></label>
                         <select ng-options="item as item.name for item in StatusList track by item.id"
                                 ng-model="Productcategory_Status"
-                                ng-disabled="!AddAction"
+                                ng-disabled="!EditMode && Saved"
                                 required
                                 name="status"
                                 class="form-control">
@@ -193,7 +211,7 @@
                         <input type="checkbox"
                                ng-checked="ProductCategory.homeFlag"
                                ng-model="ProductCategory.homeFlag"
-                               ng-disabled="!AddAction"
+                               ng-disabled="!EditMode && Saved"
                                id="homeFlag">
                         <label for="homeFlag"> Hiển thị trang chủ</label>
                     </div>
@@ -201,7 +219,7 @@
             </div>
 
             <div class="form-group row text-danger p-3">
-                <h4>Các mục có gắn <span class="text-danger">*</span> là những mục bắt buộc</h4>
+                <h4>Các mục có gắn<ng-important />là những mục bắt buộc</h4>
             </div>
 
         </div>

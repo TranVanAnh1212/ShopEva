@@ -60,7 +60,11 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" title="Export excel" href="javascript:void(0);" role="button">
+            <a class="nav-link" 
+               title="Export excel" 
+               ng-click="ExportExcel()"
+               href="javascript:void(0);" 
+               role="button">
                 <i class="fa-regular fa-file-export"></i>
             </a>
         </li>
@@ -92,7 +96,7 @@
                        cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="text-center" width="5%">
+                            <th class="text-center " width="5%" >
                                 <input type="checkbox" id="select_all"
                                        ng-click="selected_all(is_selected_all)"
                                        ng-model="is_selected_all" />
@@ -104,14 +108,46 @@
                                      class="w-100 d-flex justify-content-between">
                                     <span>Name</span>
                                     <span>
-                                        <i ng-show="order_type === 'ASC'" class="fa-duotone fa-arrow-down-short-wide"></i>
-                                        <i ng-show="order_type === 'DESC'" class="fa-solid fa-arrow-up-wide-short"></i>
+                                        <i ng-show="order_type == 'ASC' ? true : false" class="fa-duotone fa-arrow-down-short-wide"></i>
+                                        <i ng-show="order_type == 'DESC ? true : false'" class="fa-solid fa-arrow-up-wide-short"></i>
                                     </span>
                                 </div>
+
+                                <hr />
+
+                                <div>
+                                    <input class="form-control input-group-sm fs-5" 
+                                           ng-model="search_value.name"
+                                           ng-change="TblInternalSearch('name')" type="search" />
+                                </div>
                             </th>
-                            <th class="text-center" width="12%">Created date</th>
-                            <th class="text-center" width="12%">Created by</th>
-                            <th class="text-center" width="12%">Status</th>
+                            <th class="text-center" width="12%">
+                                Created date
+                                <hr />
+
+                                <div>
+                                    <input class="form-control input-group-sm fs-5" type="date" />
+                                </div>
+
+                            </th>
+                            <th class="text-center" width="12%">
+                                Created by
+
+                                <hr />
+
+                                <div>
+                                    <input class="form-control input-group-sm fs-5" type="search" />
+                                </div>
+                            </th>
+                            <th class="text-center" width="12%">
+                                Status
+                                
+                                <hr />
+
+                                <div class="hide">
+                                    <input class="form-control input-group-sm fs-5" type="search" />
+                                </div>
+                            </th>
                         </tr>
                     </thead>
 
@@ -123,7 +159,7 @@
                             <td class="text-center" width="5%">
                                 <input type="checkbox" ng-model="item.selected" />
                             </td>
-                            <td class="text-center">{{$index + 1}}</td>
+                            <td class="text-center">{{item.index}}</td>
                             <td>{{item.name}}</td>
                             <td>{{item.createdDate | date:'dd/MM/yyyy'}}</td>
                             <td>{{item.createdBy}}</td>
