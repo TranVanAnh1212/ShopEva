@@ -16,10 +16,11 @@
     <!-- Custom styles for this template-->
     <link href="~/css/select2.min.css" rel="stylesheet" />
     <link href="~/css/admin_css/sb-admin-2.min.css" rel="stylesheet" />
+    <link href="~/lib/ngckeditor/ng-ckeditor.css" rel="stylesheet" />
     @* <link href="~/lib/angular-toastr/angular-toastr.min.css" rel="stylesheet" /> *@
     <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
     <link href="~/lib/angular-loading-bar/loading-bar.min.css" rel="stylesheet" />
-    @* <link href="~/js/datatables.bootstrap.css" rel="stylesheet" /> *@
+
     <link href="~/css/site.css" rel="stylesheet" />
 
     <base href="/Dashboard"/>
@@ -53,6 +54,14 @@
     @* <script src="~/js/angular-datatables.min.js"></script>
     <script src="~/js/jquery.dataTables.min.js"></script> *@
 
+    @* <script src="~/lib/ckeditor_4.22.1_full/ckeditor/ckeditor.js"></script> *@
+    @* <script src="~/lib/ckeditor5-build-classic/ckeditor.js"></script> *@
+    <script src="~/lib/ckeditor_4.22.1_full_easyimage/ckeditor/ckeditor.js"></script>
+    <script src="~/lib/ckfinder_aspnet_2.6.2.1/ckfinder/ckfinder.js"></script>
+    <script src="~/lib/ngckeditor/ng-ckeditor.min.js"></script>
+    <script src="~/lib/elfinder/js/elfinder.min.js"></script>
+
+
     <!-- Script module -->
     <script src="~/Clients/Shares/Modules/ShopEva.Common.js"></script>
     <script src="~/Clients/Components/ProductCategory/ProductCategory.module.js"></script>
@@ -67,18 +76,24 @@
     <script src="~/Clients/Shares/Directives/PagerDirective.js"></script>
     <script src="~/Clients/Shares/Directives/Select2Directive.js"></script>
     <script src="~/clients/shares/directives/requireddirective.js"></script>
+    <script src="~/clients/shares/directives/ckeditordirective.js"></script>
+    <script src="~/clients/shares/services/authdata.js"></script>
+    <script src="~/clients/shares/services/authservice.js"></script>
+    <script src="~/clients/shares/services/loginservice.js"></script>
 
     <!-- Script controller -->
+    <script src="~/clients/components/loginpage/loginpagecontroller.js"></script>
     <script src="~/Clients/Components/AdminHome/DashboardController.js"></script>
     <script src="~/Clients/Components/ProductCategory/ProductCategoryListController.js"></script>
     <script src="~/Clients/Components/ProductCategory/ProductCategoryOverviewController.js"></script>
 
     <!-- Page level plugins -->
-    <script src="~/lib/vendor/chart.js/Chart.min.js"></script>
+    @* <script src="~/lib/vendor/chart.js/Chart.min.js"></script>
 
     <!-- Page level custom scripts -->
     <script src="~/js/admin_js/demo/chart-area-demo.js"></script>
-    <script src="~/js/admin_js/demo/chart-pie-demo.js"></script>
+    <script src="~/js/admin_js/demo/chart-pie-demo.js"></script> *@
+    
 </body>
 
 </html>

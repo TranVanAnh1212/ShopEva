@@ -43,16 +43,31 @@ namespace ShopEva.Data.Repositories
         {
             var user = await _userManager.FindByNameAsync(userVM.UserName);
             var pass = await _userManager.CheckPasswordAsync(user, userVM.Password);
+            var lockout = await _userManager.IsLockedOutAsync(user);
+            var email = _userManager.IsEmailConfirmedAsync(user);
+            var phone = _userManager.IsPhoneNumberConfirmedAsync(user);
 
             if (user == null || !pass)
             {
+                string error_msg = "";
+
+                if (user == null)
+                    error_msg = "User not found!";
+
+                if (!pass)
+                    error_msg = "Password is incorrect!";
+
+                //if (!lockout)
+                //    error_msg = "Account is locked!";
+
+
                 return new RequestMessage
                 {
                     Success = false,
                     Error = new ErrorInfor
                     {
                         Code = 404,
-                        Message = "User not found!"
+                        Message = error_msg
                     }
                 };
             }
@@ -68,7 +83,8 @@ namespace ShopEva.Data.Repositories
                     {
                         Code = 404,
                         Message = "Login falure!"
-                    }
+                    },
+                    Result = res
                 };
             }
 

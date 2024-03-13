@@ -8,7 +8,8 @@
             'ngAnimate',
             'ngBootbox',
             'ngSanitize',
-            'LocalStorageModule'
+            'LocalStorageModule',
+            'ngCkeditor'
         ]).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
             // Thay đổi màu sắc của loading bar
             cfpLoadingBarProvider.includeSpinner = true;
@@ -19,3 +20,6 @@
 })()
 
 // 'datatables'
+
+//LicenseName = "@tuannguyen";
+//LicenseKey = "AUKPSE6XSVSJTP4MSV9RQKJBKGLL3KN7";

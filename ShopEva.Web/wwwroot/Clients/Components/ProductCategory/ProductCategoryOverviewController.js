@@ -27,7 +27,19 @@
         vm.Reload = Reload;
         vm.Close = Close;
         vm.GetSEOTitle = GetSEOTitle;
+        vm.updateDescriptionValue = updateDescriptionValue;
+        vm.ChooseImage = ChooseImage;
 
+        function ChooseImage() {
+            var finder = new CKFinder();
+            finder.selectActionFunction = function (fileUrl) {
+                vm.$apply(function () {
+                    vm.ProductCategory.image = fileUrl;
+                })
+            }
+            finder.popup();
+        }
+        
         function GetSEOTitle() {
             vm.ProductCategory.alias = CommonService.GetSEOTitle(vm.ProductCategory.name);
         }
@@ -40,6 +52,13 @@
                 vm.Saved = true;
             }
         })();
+
+        function updateDescriptionValue(editor) {
+            var value = editor.getData();
+            $scope.$apply(function () {
+                $scope.ProductCategory.description = value;
+            });
+        }
 
         function GetByID(id) {
             var config = {
@@ -54,6 +73,15 @@
 
                 vm.ProductCategory = value.result;
                 vm.ProductCategoryID = value.result.id;
+
+                angular.forEach(vm.ParentList, (item) => {
+                    if (item.id === value.result.parentID) {
+                        vm.Parent = angular.copty(item);
+                    }
+                })
+
+                console.log(vm.Parent);
+
             }, (error) => {
                 NotifyService.Shows('error', 'Cannot get record');
             });

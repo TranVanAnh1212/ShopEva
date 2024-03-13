@@ -1,6 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using ShopEva.Models.Model;
 
 namespace ShopEva.Data.Contexts
@@ -19,6 +20,8 @@ namespace ShopEva.Data.Contexts
             optionsBuilder.UseNpgsql("Host=localhost;Database=ShopEva;Username=postgres;Password=123456");
 
             base.OnConfiguring(optionsBuilder);
+
+            
         }
 
         public DbSet<Brand> Brands { get; set; }
@@ -52,6 +55,18 @@ namespace ShopEva.Data.Contexts
 
             modelBuilder.HasDefaultSchema("public");
             base.OnModelCreating(modelBuilder);
+
+            // Bỏ tiền tố AspNet của các bảng: mặc định các bảng trong IdentityDbContext có
+            // tên với tiền tố AspNet như: AspNetUserRoles, AspNetUser ...
+            // Đoạn mã sau chạy khi khởi tạo DbContext, tạo database sẽ loại bỏ tiền tố đó
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+            {
+                var tableName = entityType.GetTableName();
+                if (tableName.StartsWith("AspNet"))
+                {
+                    entityType.SetTableName(tableName.Substring(6));
+                }
+            }
         }
 
     }

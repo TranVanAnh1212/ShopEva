@@ -7,11 +7,13 @@ using ShopEva.Services.RequestMessage;
 using ShopEva.Services.Extention;
 using ShopExample.Web.Infrastructure.Core;
 using Newtonsoft.Json.Linq;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShopEva.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class ProductCategoryAPIController : ControllerBase
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -25,6 +27,7 @@ namespace ShopEva.API.Controllers
         }
 
         [HttpGet("getall")]
+        [AllowAnonymous]
         public IActionResult Get(string? keyword, string? order_by, int status, int page = 1, string order_type = "ASC")
         {
             try
@@ -66,6 +69,7 @@ namespace ShopEva.API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("get_parent")]
         public async Task<IActionResult> Get(Guid? id)
         {
@@ -96,6 +100,7 @@ namespace ShopEva.API.Controllers
             }
         }
 
+        [AllowAnonymous]
         [HttpGet("getbyid")]
         public IActionResult Get(Guid id)
         {

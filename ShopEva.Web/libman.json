@@ -49,6 +49,14 @@
     {
       "library": "angular-sanitize@1.8.3",
       "destination": "wwwroot/lib/angular-sanitize/"
+    },
+    {
+      "library": "angular-ckeditor@1.0.3",
+      "destination": "wwwroot/lib/angular-ckeditor/"
+    },
+    {
+      "library": "elfinder@2.1.65",
+      "destination": "wwwroot/lib/elfinder/"
     }
   ]
 }

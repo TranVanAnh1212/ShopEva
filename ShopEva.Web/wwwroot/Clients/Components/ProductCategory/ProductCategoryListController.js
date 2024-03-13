@@ -4,10 +4,10 @@
     app.controller('ProductCategoryListController', ProductCategoryListController);
 
     ProductCategoryListController.$inject = ['$scope', 'CRUDService', 'NotifyService',
-        '$filter', '$ngBootbox', '$location', 'localStorageService'];
+        '$filter', '$ngBootbox', '$location', 'localStorageService', '$timeout'];
 
     function ProductCategoryListController($scope, CRUDService, NotifyService, $filter,
-        $ngBootbox, $location, localStorageService) {
+        $ngBootbox, $location, localStorageService, $timeout) {
         var vm = $scope;
 
         // variable
@@ -45,20 +45,23 @@
         function TblInternalSearch(col_name) {
             switch (col_name) {
                 case 'name':
-                    var searched_list = [];
+                    setTimeout(function () {
+                        var searched_list = [];
 
-                    if (vm.search_value.name) {
-                        angular.forEach(vm.product_category_list, (item) => {
-                            if (item.name.includes(vm.search_value.name)) {
-                                searched_list.push(item);
-                            }
-                        });
+                        if (vm.search_value.name) {
+                            angular.forEach(vm.product_category_list, (item) => {
+                                if (item.name.includes(vm.search_value.name)) {
+                                    searched_list.push(item);
+                                }
+                            });
 
-                        vm.product_category_list = searched_list;
-                    }
-                    else {
-                        vm.product_category_list = angular.copy(vm.product_category_original);
-                    }
+                            vm.product_category_list = searched_list;
+                        }
+                        else {
+                            vm.product_category_list = angular.copy(vm.product_category_original);
+                        }
+                    }, 300);
+                    
                     break;
             }
         }
@@ -117,7 +120,7 @@
             $location.path('/product_category_overview/' + vm.product_category_list_checked[0].id);
         }
 
-        function ChangeSorted() {
+        function ChangeSorted(type) {
             vm.order_type = vm.order_type == 'DESC' ? 'ASC' : 'DESC';
             GetProductCategoryList(vm.page, vm.status.id);
         }

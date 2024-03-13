@@ -1,13 +1,7 @@
 ﻿using ShopEva.Data.Infrastructure;
 using ShopEva.Data.IRepositories;
-using ShopEva.Data.Repositories;
 using ShopEva.Models.Model;
 using ShopEva.Services.IServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ShopEva.Services.Services
 {
@@ -49,40 +43,56 @@ namespace ShopEva.Services.Services
             }
 
             #region ====  Order  ====
-            //switch (order_by)
-            //{
-            //    case "Name":
-            //        switch (order_type)
-            //        {
-            //            case "ASC":
-            //                product_category_list = product_category_list.OrderBy(x => x.Name);
-            //                break;
-            //            case "DESC":
-            //                product_category_list = product_category_list.OrderByDescending(x => x.Name);
-            //                break;
-            //        }
-
-            //        break;
-            //    default:
-            //        switch (order_type)
-            //        {
-            //            case "ASC":
-            //                product_category_list = product_category_list.OrderBy(x => x.Name);
-            //                break;
-            //            case "DESC":
-            //                product_category_list = product_category_list.OrderByDescending(x => x.Name);
-            //                break;
-            //        }
-            //        break;
-            //}
-            #endregion
-
-            int index = 1;
-            foreach (var item in product_category_list)
+            switch (order_type)
             {
-                item.Index = index;
-                index++;
+                case "ASC":
+                    switch (order_by)
+                    {
+                        case "name":
+                            product_category_list = product_category_list.OrderBy(x => x.Name.ToLower());
+                            break;
+                    }
+
+                    int index_asc = 1;
+                    foreach (var item in product_category_list)
+                    {
+                        item.Index = index_asc;
+                        index_asc++;
+                    }
+                    break;
+                case "DESC":
+                    switch (order_by)
+                    {
+                        case "name":
+                            product_category_list = product_category_list.OrderByDescending(x => x.Name.ToLower());
+                            break;
+                    }
+
+                    int index_desc = product_category_list.Count();
+                    foreach (var item in product_category_list)
+                    {
+                        item.Index = index_desc;
+                        index_desc--;
+                    }
+
+                    break;
+                default:
+                    switch (order_by)
+                    {
+                        case "name":
+                            product_category_list = product_category_list.OrderBy(x => x.Name.ToLower());
+                            break;
+                    }
+
+                    int index = 1;
+                    foreach (var item in product_category_list)
+                    {
+                        item.Index = index;
+                        index++;
+                    }
+                    break;
             }
+            #endregion
 
             return product_category_list;
         }

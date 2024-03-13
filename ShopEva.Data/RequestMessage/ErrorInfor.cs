@@ -8,7 +8,7 @@ namespace ShopEva.Services.RequestMessage
 {
     public class ErrorInfor
     {
-        public int Code { get; set; }
-        public string Message { get; set; }
+        public int? Code { get; set; }
+        public string? Message { get; set; }
     }
 }
