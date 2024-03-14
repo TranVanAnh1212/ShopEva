@@ -2,7 +2,9 @@
 
 (function () {
     angular.module('ShopEva', ['ShopEva.Common',
-        'ShopEva.ProductCategory'])
+        'ShopEva.ProductCategory',
+        'ShopEva.Product'
+    ])
         .config(config)
         .config(configAuthentication);
 
@@ -31,7 +33,7 @@
     }
 
     function configAuthentication($httpProvider) {
-        $httpProvider.interceptors.push(function ($q, $location) {
+        $httpProvider.interceptors.push(function ($q, NotifyService, authData, $state) {
             return {
                 request: function (config) {
                     return config;
@@ -40,16 +42,19 @@
                     return $q.reject(rejection);
                 },
                 response: function (response) {
-                    if (response.status == "401") {
-                        $location.path('/login');
+                    if (response.status === 401 || !authData.authenticationData.is_authenticated) {
+                        NotifyService.Shows('error', 'Yêu cầu đăng nhập');
+                        $state.go('LoginPage');
                     }
                     //the same response/modified/or a new one need to be returned.
                     return response;
                 },
                 responseError: function (rejection) {
-                    if (rejection.status == "401") {
-                        $location.path('/login');
+                    if (rejection.status === 401 || !authData.authenticationData.is_authenticated) {
+                        NotifyService.Shows('error', 'Yêu cầu đăng nhập');
+                        $state.go('LoginPage');
                     }
+
                     return $q.reject(rejection);
                 }
             };

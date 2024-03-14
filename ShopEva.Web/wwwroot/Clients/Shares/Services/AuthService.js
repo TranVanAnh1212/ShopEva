@@ -1,7 +1,7 @@
 ﻿(function (app) {
     'use strict';
-    app.service('authService', ['$http', '$q', '$window', 'localStorageService', 'authData',
-        function ($http, $q, $window, localStorageService, authData) {
+    app.service('authService', ['$http', '$q', '$window', 'localStorageService', 'authData', 'jwtHelper',
+        function ($http, $q, $window, localStorageService, authData, jwtHelper) {
             var tokenInfo;
 
             this.setTokenInfo = function (data) {
@@ -19,13 +19,18 @@
             }
 
             this.init = function () {
-                var tokenInfo = localStorageService.get('TokenInfo');
+                var tokenInfo = localStorageService.get('TokenInfo'); 
+                //var tokenPayload;
+
+                //if (tokenInfo)
+                //    tokenPayload = jwtHelper.decodeToken(JSON.parse(tokenInfo).access_token);
 
                 if (tokenInfo) {
                     tokenInfo = JSON.parse(tokenInfo);
                     authData.authenticationData.is_authenticated = true;
                     authData.authenticationData.user_name = tokenInfo.user_name;
                     authData.authenticationData.access_token = tokenInfo.access_token;
+                    authData.authenticationData.token = tokenPayload;
                 }
             }
 
@@ -39,7 +44,7 @@
             }
 
             this.validateRequest = function () {
-                var url = '/api/home/TestMethod';
+                var url = '/api/AuthAPI/check_user_demo';
 
                 var deferred = $q.defer();
 

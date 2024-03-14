@@ -1,4 +1,6 @@
 ﻿
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +10,7 @@ using ShopEva.Data.ViewModels;
 using ShopEva.Models.Model;
 using ShopEva.Services.RequestMessage;
 using System.IdentityModel.Tokens.Jwt;
+using System.Runtime.InteropServices;
 using System.Security.Claims;
 using System.Text;
 
@@ -20,18 +23,21 @@ namespace ShopEva.Data.Repositories
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public AuthRepository(ShopEvaDbContext db,
                                 UserManager<ApplicationUser> userManager,
                                 SignInManager<ApplicationUser> signInManager,
                                 RoleManager<IdentityRole> roleManager,
-                                IConfiguration configuration)
+                                IConfiguration configuration,
+                                IHttpContextAccessor httpContextAccessor)
         {
             _db = db;
             _userManager = userManager;
             _signInManager = signInManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public Task<ApplicationUser> GetByUserName(string username)
@@ -145,6 +151,12 @@ namespace ShopEva.Data.Repositories
             }
 
             return result;
+        }
+
+        public RequestMessage LogOutAsync()
+        {
+            _httpContextAccessor.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+            return new RequestMessage { Success = true };
         }
     }
 }

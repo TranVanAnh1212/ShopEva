@@ -1,14 +1,22 @@
 ﻿/// <reference path="../../../lib/angular.js/angular.js" />
 
 (function (app) {
-    app.controller('RootController', RootController);
+    app.controller('RootController', ['$scope', 'authData', 'loginService', '$state', '$ngBootbox',
+        function ($scope, authData, loginService, $state, $ngBootbox) {
+            var vm = $scope;
 
-    RootController.$inject = ['$scope', 'authData'];
+            vm.DemoValue = "Trần Văn Anh Demo value angular.js"
 
-    function RootController($scope, authData) {
-        $scope.DemoValue = "Trần Văn Anh Demo value angular.js"
+            vm.authentication = authData.authenticationData;
 
-        $scope.authentication = authData.authenticationData;
-    }
+            //vm.LogOut = function () {
+            //    $ngBootbox.confirm('Logout ?')
+            //        .then(() => {
+            //            loginService.logOut();
+            //            $state.go('LoginPage');
+            //        })
 
+            //};
+
+        }]);
 })(angular.module('ShopEva'));

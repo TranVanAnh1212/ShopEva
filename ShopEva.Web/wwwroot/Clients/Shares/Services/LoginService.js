@@ -24,15 +24,25 @@
 
                         authService.setTokenInfo(userInfo);
 
+                        var tokenPayload;
+
+                        if (tokenInfo)
+                            tokenPayload = jwtHelper.decodeToken(userInfo.access_token);
+
+                        userInfo.roles = tokenPayload;
+
                         authData.authenticationData.is_authenticated = true;
                         authData.authenticationData.user_name = username;
-                        authData.authenticationData.accessToken = userInfo.accessToken;
+                        authData.authenticationData.access_token = userInfo.access_token;
+                        authData.authenticationData.roles = userInfo.roles;
 
                         deferred.resolve(null);
 
                     }, function (error, status) {
                         authData.authenticationData.is_authenticated = false;
                         authData.authenticationData.user_name = "";
+                        authData.authenticationData.access_token = '';
+                        authData.authenticationData.roles = null;
 
                         deferred.resolve(error);
                     })
@@ -72,8 +82,10 @@
             }
 
             this.logOut = function () {
-                ApiService.post('/api/account/logout', null, function (response) {
-                    authenticationService.removeToken();
+                CRUDService.post('/api/AuthAPI/LogOut', null, function (response) {
+                    console.log(response);
+
+                    authService.removeToken();
                     authData.authenticationData.is_authenticated = false;
                     authData.authenticationData.user_name = "";
                     authData.authenticationData.access_token = "";

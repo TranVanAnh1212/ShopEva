@@ -14,6 +14,7 @@ namespace ShopEva.Models.Model
         public DateTime? Birthday { get; set; }
         [MaxLength(256)]
         public string? Fullname { get; set; }
+        public string? Avatar { get; set; }
 
         //public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         //{

@@ -81,6 +81,11 @@ namespace ShopEva.API
                 options.SignIn.RequireConfirmedPhoneNumber = false;     // Xác thực số điện thoại
             });
 
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(60);
+            });
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
             var mapperConfig = new MapperConfiguration(mc =>
@@ -119,10 +124,14 @@ namespace ShopEva.API
                     ValidateAudience = true,
                     ValidAudience = builder.Configuration["Identity_Jwt:ValidAudience"],
                     ValidIssuer = builder.Configuration["Identity_Jwt:ValidIssuer"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Identity_Jwt:Secret"]))
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Identity_Jwt:Secret"])),
+                    RequireExpirationTime = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 
+            builder.Services.AddHttpContextAccessor();
 
             builder.Services.AddMvc();
             builder.Services.AddHttpClient();
@@ -155,6 +164,10 @@ namespace ShopEva.API
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseCookiePolicy();
+            app.UseSession();
+
             app.UseAuthentication();
             app.UseAuthorization();
 

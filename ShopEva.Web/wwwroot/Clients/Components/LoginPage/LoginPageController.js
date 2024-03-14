@@ -1,9 +1,9 @@
 ﻿(function (app) {
     app.controller('LoginPageController', LoginPageController);
 
-    LoginPageController.$inject = ['$scope', 'CRUDService', 'loginService', 'NotifyService', '$injector'];
+    LoginPageController.$inject = ['$scope', '$window', '$state', '$location', 'CRUDService', 'loginService', 'NotifyService', '$injector', 'localStorageService'];
 
-    function LoginPageController($scope, CRUDService, loginService, NotifyService, $injector) {
+    function LoginPageController($scope, $window, $state, $location, CRUDService, loginService, NotifyService, $injector, localStorageService) {
         var vm = $scope;
 
         vm.loginData = {
@@ -22,9 +22,9 @@
                     console.log(res);
 
                     if (res != null) {
-                        NotifyService.Shows('error', 'Login failue ... ');
+                        NotifyService.Shows('error', 'Login failure ... ');
                     }
-                    else {
+                    else { 
                         var stateService = $injector.get('$state');
                         stateService.go('Dashboard');
                     }

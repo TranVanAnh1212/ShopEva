@@ -9,7 +9,8 @@
             'ngBootbox',
             'ngSanitize',
             'LocalStorageModule',
-            'ngCkeditor'
+            'ngCkeditor',
+            'angular-jwt'
         ]).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
             // Thay đổi màu sắc của loading bar
             cfpLoadingBarProvider.includeSpinner = true;

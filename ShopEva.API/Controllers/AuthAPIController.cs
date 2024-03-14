@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ShopEva.Data.IRepositories;
 using ShopEva.Data.Repositories;
@@ -20,6 +21,7 @@ namespace ShopEva.API.Controllers
         }
 
         [HttpPost("Register")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Register(RegisterUserViewModel user)
         {
             try
@@ -66,5 +68,34 @@ namespace ShopEva.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [Authorize]
+        [HttpGet("check_user_demo")]
+        public IActionResult SomeAction()
+        {
+            // Kiểm tra xem người dùng đã đăng nhập hay không
+            if (User.Identity.IsAuthenticated)
+            {
+                // Truy cập thông tin của người dùng
+                string userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                string userName = User.Identity.Name;
+                // Các thông tin khác có thể truy cập thông qua Claims của User
+
+                return Content($"User {userName} with ID {userId} is authenticated.");
+            }
+            else
+            {
+                return Content("User is not authenticated.");
+            }
+        }
+
+        [HttpPost("logout")]
+        [Authorize]
+        public IActionResult LogOut()
+        {
+            var res = _authRepository.LogOutAsync();
+
+            return Ok();
+        } 
     }
 }
