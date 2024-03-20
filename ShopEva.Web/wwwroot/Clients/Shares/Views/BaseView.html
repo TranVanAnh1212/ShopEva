@@ -4,17 +4,26 @@
     <!-- Sidebar -->
     <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
         <!-- Sidebar - Brand -->
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" 
-           href="javascript:void(0);"
-           ui-sref="Dashboard">
-            <div class="sidebar-brand-icon rotate-n-15">
-                <i class="fas fa-laugh-wink"></i>
-            </div>
-            <div class="sidebar-brand-text mx-3">ShopEva <sup>admin</sup></div>
-        </a>
+        <li>
+            <a class="sidebar-brand d-flex align-items-center justify-content-center"
+               href="javascript:void(0);"
+               ui-sref="Dashboard">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">ShopEva <sup>admin</sup></div>
+            </a>
+        </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0" />
+        <li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0" />
+        </li>
+
+        <li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0" />
+        </li>
 
         <!-- Nav Item - Dashboard -->
         <li class="nav-item active">
@@ -24,20 +33,22 @@
             </a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+        <li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0" />
+        </li>
 
         <!-- Heading -->
-        <div class="sidebar-heading">
+        <li class="sidebar-heading">
             Interface
-        </div>
+        </li>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
-            <a class="nav-link collapsed" 
-               href="javascript:void(0);" 
-               data-toggle="collapse" 
-               data-target="#collapseTwo" 
+            <a class="nav-link collapsed"
+               href="javascript:void(0);"
+               data-toggle="collapse"
+               data-target="#collapseTwo"
                aria-expanded="true" aria-controls="collapseTwo">
                 <i class="fas fa-fw fa-cog"></i>
                 <span>Products</span>
@@ -73,13 +84,15 @@
             </div>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+        <li>
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0" />
+        </li>
 
         <!-- Heading -->
-        <div class="sidebar-heading">
+        <li class="sidebar-heading">
             Addons
-        </div>
+        </li>
 
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
@@ -117,24 +130,24 @@
             </a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+        <li>
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+        </li>
 
         <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
+        <li class="text-center d-none d-md-inline">
             <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
-
+        </li>
     </ul>
     <!-- End of Sidebar -->
+
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
-
         <!-- Main Content -->
         <div id="content">
             <!-- Topbar -->
             <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
-
                 <!-- Sidebar Toggle (Topbar) -->
                 <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                     <i class="fa fa-bars"></i>
@@ -280,21 +293,22 @@
                         </div>
                     </li>
 
-                    <div class="topbar-divider d-none d-sm-block"></div>
+                    <li class="topbar-divider d-none d-sm-block"></li>
 
                     <!-- Nav Item - User Information -->
                     <li class="nav-item dropdown no-arrow">
-                        <a class="nav-link dropdown-toggle" 
-                           href="javascript:void(0);" 
-                           id="userDropdown" role="button" 
-                           data-toggle="dropdown" 
-                           aria-haspopup="true" 
+                        <a class="nav-link dropdown-toggle"
+                           href="javascript:void(0);"
+                           id="userDropdown" role="button"
+                           data-toggle="dropdown"
+                           aria-haspopup="true"
                            aria-expanded="false">
-                            <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{authentication.user_name}}</span>
-                            <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
+                            <span class="mr-2 d-none d-lg-inline text-while-600 small">{{authentication.user_name}}</span>
+                            <img class="img-profile rounded-circle" src="https://www.facebook.com/photo/?fbid=122151211208040240&set=a.122108640770040240">
                         </a>
+
                         <!-- Dropdown - User Information -->
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                        <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
                             <a class="dropdown-item" href="#">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                 Profile
@@ -319,11 +333,13 @@
 
             </nav>
             <!-- End of Topbar -->
+
             <!-- Begin Page Content -->
             <div ui-view></div>
             <!-- /.container-fluid -->
         </div>
         <!-- End of Main Content -->
+
         <!-- Footer -->
         <footer class="sticky-footer bg-white">
             <div class="container my-auto">

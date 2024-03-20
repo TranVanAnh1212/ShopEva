@@ -1,26 +1,23 @@
-﻿using ShopEva.Models.Abstract;
-using System.ComponentModel.DataAnnotations;
+﻿using ShopEva.Models.Model;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ShopEva.Models.Model
+namespace ShopEva.Data.ViewModels
 {
-    [Table("Products" )]
-    public class Product : Auditable
+    public class ProductViewModel
     {
-        [Key]
-        [Required]
         public Guid ID { get; set; }
-        [Required]
-        [MaxLength(501)]
-        public string Name { get; set; }
-        [MaxLength(500)]
+        public string? Name { get; set; }
+        public string Alias { get; set; }
         public string? Description { get; set; }
         public string? Contents { get; set; }
-        [MaxLength(500)]
-        public string? Alias { get; set; }
         public string? Image { get; set; }
         public string? Image2 { get; set; }
-        [Column(TypeName = "xml")]
         public string? MoreImage { get; set; }
         public bool? HomeFlag { get; set; }
         public bool? HotFlag { get; set; }
@@ -31,7 +28,12 @@ namespace ShopEva.Models.Model
         public decimal? PromotionPrice { get; set; }
         public int? ReviewCount { get; set; }
         public string? Tags { get; set; }
-        public IEnumerable<ProductTag> ProductTags { get; set; }
-        public IEnumerable<ProductProductCategory> ProductProductCategories { get; set; }
+        public DateTime? CreatedDate { get; set; }
+        public string? CreatedBy { get; set; }
+        public DateTime? ModifiedDate { get; set; }
+        public string? ModifiedBy { get; set; }
+        public string? MetaKeyWord { get; set; }
+        public string? MetaDescription { get; set; }
+        public int Status { get; set; }
     }
 }

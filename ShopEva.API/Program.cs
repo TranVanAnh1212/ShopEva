@@ -63,7 +63,7 @@ namespace ShopEva.API
                 options.Password.RequireLowercase = false; // Không bắt phải có chữ thường
                 options.Password.RequireNonAlphanumeric = false; // Không bắt ký tự đặc biệt
                 options.Password.RequireUppercase = false; // Không bắt buộc chữ in
-                options.Password.RequiredLength = 3; // Số ký tự tối thiểu của password
+                options.Password.RequiredLength = 6; // Số ký tự tối thiểu của password
                 options.Password.RequiredUniqueChars = 1; // Số ký tự riêng biệt
 
                 // Cấu hình Lockout - khóa user
@@ -106,6 +106,12 @@ namespace ShopEva.API
             builder.Services.AddScoped<IStatusService, StatusService>();
             builder.Services.AddScoped<IProductCategoryRepository, ProductCategoryRepository>();
             builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+            builder.Services.AddScoped<IProductRepository, ProductRepository>();
+            builder.Services.AddScoped<IProductService, ProductService>();
+            builder.Services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
+            builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
+            builder.Services.AddScoped<IProductProductCategoryRepository, ProductProductCategoryRepository>();
+            builder.Services.AddScoped<IProductProductCategoryService, ProductProductCategoryService>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
             #endregion
 
@@ -135,6 +141,12 @@ namespace ShopEva.API
 
             builder.Services.AddMvc();
             builder.Services.AddHttpClient();
+
+            builder.Services.AddLogging(options =>
+            {
+                options.AddDebug();
+                options.AddConsole();
+            });
 
             var app = builder.Build();
 

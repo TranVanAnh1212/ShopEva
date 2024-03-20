@@ -30,7 +30,6 @@
                     authData.authenticationData.is_authenticated = true;
                     authData.authenticationData.user_name = tokenInfo.user_name;
                     authData.authenticationData.access_token = tokenInfo.access_token;
-                    authData.authenticationData.token = tokenPayload;
                 }
             }
 

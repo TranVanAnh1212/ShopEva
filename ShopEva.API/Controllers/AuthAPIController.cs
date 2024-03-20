@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ShopEva.Data.IRepositories;
 using ShopEva.Data.Repositories;
 using ShopEva.Data.ViewModels;
+using ShopEva.Models.Model;
 using ShopEva.Services.RequestMessage;
 using ShopEva.Services.Services;
 
@@ -14,11 +18,21 @@ namespace ShopEva.API.Controllers
     public class AuthAPIController : ControllerBase
     {
         private IAuthRepository _authRepository;
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> _userManager;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public AuthAPIController(IAuthRepository authRepository)
-        {
+        public AuthAPIController(IAuthRepository authRepository, 
+                                SignInManager<ApplicationUser> signInManager,
+                                Microsoft.AspNetCore.Identity.UserManager<ApplicationUser> userManager,
+                                IHttpContextAccessor httpContextAccessor)
+        { 
             _authRepository = authRepository;
+            _signInManager = signInManager;
+            _userManager = userManager;
+            _httpContextAccessor = httpContextAccessor;
         }
+
 
         [HttpPost("Register")]
         [Authorize(Roles = "admin")]
@@ -54,6 +68,23 @@ namespace ShopEva.API.Controllers
             }
         }
 
+        [HttpPost("Login2")]
+        public async Task<IActionResult> Login2(LoginUserViewModel userVM)
+        {
+            try
+            {
+                var user = await _userManager.FindByNameAsync(userVM.UserName);
+
+                var res = await _signInManager.PasswordSignInAsync(user, userVM.Password, userVM.RememberMe, false);
+
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         [HttpPost("Login")]
         public async Task<IActionResult> Login(LoginUserViewModel user)
         {
@@ -61,7 +92,17 @@ namespace ShopEva.API.Controllers
             {
                 var res = await _authRepository.LoginAsync(user);
 
+                // Kiểm tra xem người dùng đã đăng nhập hay không
+                if (User.Identity.IsAuthenticated)
+                {
+                    // Truy cập thông tin của người dùng
+                    string userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+                    string userName = User.Identity.Name;
+                    // Các thông tin khác có thể truy cập thông qua Claims của User
+                }
+
                 return Ok(res);
+
             }
             catch (Exception ex)
             {

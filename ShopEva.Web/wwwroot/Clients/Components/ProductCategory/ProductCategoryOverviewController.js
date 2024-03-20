@@ -12,7 +12,6 @@
 
         vm.AddAction = true;
         vm.EditMode = false;
-        vm.AddAction = true;
         vm.Saved = false;
         vm.ProductCategory = {};
         vm.ProductCategoryGlobal;
@@ -100,7 +99,6 @@
 
             if (vm.AddAction)
                 CRUDService.post('/api/ProductCategoryAPI/addnew', vm.ProductCategory, (result) => {
-                    console.log(result);
                     vm.AddAction = false;
                     vm.EditMode = false;
                     vm.submitted = false;
@@ -112,7 +110,6 @@
 
                     NotifyService.Shows('success', 'Add new successfully.');
                 }, (err) => {
-                    console.log(err);
                     NotifyService.Shows('error', 'Cannot create, some wrong...');
                 });
             else

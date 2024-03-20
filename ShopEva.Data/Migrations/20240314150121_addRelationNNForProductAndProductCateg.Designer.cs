@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShopEva.Data.Contexts;
@@ -11,9 +12,11 @@ using ShopEva.Data.Contexts;
 namespace ShopEva.Data.Migrations
 {
     [DbContext(typeof(ShopEvaDbContext))]
-    partial class ShopEvaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240314150121_addRelationNNForProductAndProductCateg")]
+    partial class addRelationNNForProductAndProductCateg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -730,7 +733,7 @@ namespace ShopEva.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<int?>("BuyCount")
+                    b.Property<int>("BuyCount")
                         .HasColumnType("integer");
 
                     b.Property<string>("Contents")
@@ -747,10 +750,10 @@ namespace ShopEva.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<bool?>("HomeFlag")
+                    b.Property<bool>("HomeFlag")
                         .HasColumnType("boolean");
 
-                    b.Property<bool?>("HotFlag")
+                    b.Property<bool>("HotFlag")
                         .HasColumnType("boolean");
 
                     b.Property<string>("Image")
@@ -788,10 +791,10 @@ namespace ShopEva.Data.Migrations
                     b.Property<decimal?>("PromotionPrice")
                         .HasColumnType("numeric");
 
-                    b.Property<int?>("Quantity")
+                    b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("ReviewCount")
+                    b.Property<int>("ReviewCount")
                         .HasColumnType("integer");
 
                     b.Property<int>("Status")
@@ -800,7 +803,7 @@ namespace ShopEva.Data.Migrations
                     b.Property<string>("Tags")
                         .HasColumnType("text");
 
-                    b.Property<int?>("ViewCount")
+                    b.Property<int>("ViewCount")
                         .HasColumnType("integer");
 
                     b.HasKey("ID");

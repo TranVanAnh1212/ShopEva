@@ -34,10 +34,12 @@ namespace ShopEva.Data.Infrastructure
             return dbSet.Add(entity).Entity;
         }
 
-        public virtual void Update(T entity)
+        public virtual T Update(T entity)
         {
             dbSet.Attach(entity);
             dataContext.Entry(entity).State = EntityState.Modified;
+
+            return entity;
         }
 
         public virtual T Delete(T entity)
@@ -166,6 +168,11 @@ namespace ShopEva.Data.Infrastructure
         public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> where, string includes = null)
         {
             return await dbSet.Where(where).ToListAsync();
+        }
+
+        public T AddQuery(string query)
+        {
+            throw new NotImplementedException();
         }
 
 

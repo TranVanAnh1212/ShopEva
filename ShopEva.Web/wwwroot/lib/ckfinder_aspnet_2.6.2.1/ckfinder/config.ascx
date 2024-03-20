@@ -1,7 +1,6 @@
 <%@ Control Language="C#" EnableViewState="false" AutoEventWireup="false" Inherits="CKFinder.Settings.ConfigFile" %>
 <%@ Import Namespace="CKFinder.Settings" %>
 <script runat="server">
-
 	/**
 	 * This function must check the user session to be sure that he/she is
 	 * authorized to upload and access files using CKFinder.

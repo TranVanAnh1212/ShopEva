@@ -28,14 +28,12 @@ namespace ShopEva.Services.Services
 
         public IEnumerable<ProductCategory> GetAll(int status, string? keyword, string? order_by, string? order_type)
         {
-            IEnumerable<ProductCategory> product_category_list;
+            var product_category_list = _productCategoryRepository.GetAll();
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                product_category_list = _productCategoryRepository.GetMulti(x => x.Name.Equals(keyword));
+                product_category_list = product_category_list.Where(x => x.Name.Contains(keyword));
             }
-            else
-                product_category_list = _productCategoryRepository.GetAll();
 
             if (status >= 0)
             {

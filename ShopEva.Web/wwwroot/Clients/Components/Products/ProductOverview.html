@@ -1,0 +1,435 @@
+﻿
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <h3>Product detail</h3>
+        </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto" ng-if="Saved">
+        <li class="nav-item">
+            <a class="nav-link" title="Reload" href="javascript:void(0);" role="button">
+                <i class="fa-light fa-repeat"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" title="Update" ng-click="Edit()" href="javascript:void(0);" role="button">
+                <i class="fa-light fa-pen-to-square"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" title="Duyệt" href="javascript:void(0);" role="button">
+                <i class="fa-light fa-check-to-slot"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-danger"
+               title="Cancel"
+               ui-sref="product"
+               href="javascript:void(0);" role="button">
+                <i class="fa-regular fa-xmark-large"></i>
+            </a>
+        </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto" ng-if="!Saved">
+        <li class="nav-item">
+            <a class="nav-link"
+               title="Save"
+               href="javascript:void(0);"
+               ng-click="SaveAdd(frmAddProduct.$invalid)"
+               role="button">
+                <i class="fa-light fa-floppy-disk"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-danger"
+               title="Cancel"
+               ui-sref="product"
+               href="javascript:void(0);"
+               role="button">
+                <i class="fa-regular fa-xmark-large"></i>
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <div class="tab">
+        <button class="tablinks active" id="tab_main_btn">Thông tin chính</button>
+        <button class="tablinks" id="tab_detals_btn">Thông tin chi tiết</button>
+        <button class="tablinks" id="tab_analyze_btn">Thống kê</button>
+    </div>
+
+    <div id="tab_main" class="tabcontent active">
+        <!-- form start -->
+        <form class="form-horizontal" novalidate name="frmAddProduct" role="form">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-sm-6 row">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Name<ng-important /></label>
+                            <input ng-model="Product.name"
+                                   ng-maxlength="501"
+                                   required
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-change="GetSEOTitle()"
+                                   class="form-control"
+                                   name="name">
+
+                            <div ng-messages="frmAddProduct.name.$error" class="text-danger" ng-if="submitted">
+                                <span ng-message="required">Product name is required.</span>
+                                <span ng-message="maxlength">Product name no more than 501 characters.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">SEO Title<ng-important /></label>
+
+                            <input type="text"
+                                   required
+                                   name="alias"
+                                   readonly
+                                   ng-maxlength="500"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model=" Product.alias"
+                                   class="form-control">
+
+                            <div ng-messages="frmAddProduct.alias.$error" class="text-danger" ng-if="submitted">
+                                <span ng-message="required">SEO Title is required.</span>
+                                <span ng-message="maxlength">Category alias no more than 501 characters.</span>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Product category</label>
+
+                            <select select2 class="form-control col-md-12 col-xs-12"
+                                    id="product_category_overview_add"
+                                    name="product_category_overview_add"
+                                    multiple
+                                    ng-model="Category"
+                                    ng-disabled="!EditMode && Saved"
+                                    ng-options="option as option.name for option in CategoryList | orderBy: 'name'">
+                                <option value="">---- Choose parent category ----</option>
+                            </select>
+
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Quantity<ng-important /></label>
+                            <input type="number"
+                                   name="quantity"
+                                   required
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="Product.quantity"
+                                   class="form-control">
+
+                            <div ng-messages="frmAddProduct.quantity.$error" class="text-danger" ng-if="submitted">
+                                <p ng-message="required">Quantity is required.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Display order</label>
+                            <input type="number"
+                                   name="displayOrder"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="Product.displayOrder"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Meta keyword</label>
+                            <input type="text"
+                                   name="metaKeyword"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model=" Product.metaKeyWord"
+                                   class="form-control">
+                        </div>
+
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Meta description</label>
+                            <textarea ng-model=" Product.metaDescription"
+                                      ng-disabled="!EditMode && Saved"
+                                      name="metaDescription"
+                                      rows="1"
+                                      class="form-control"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 row">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Price<ng-important /></label>
+                            <input type="number"
+                                   name="price"
+                                   required
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="Product.price"
+                                   class="form-control">
+
+                            <div ng-messages="frmAddProduct.price.$error" class="text-danger" ng-if="submitted">
+                                <p ng-message="required">Price is required.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Promotion price</label>
+                            <input type="number"
+                                   name="promotionPrice"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="Product.promotionPrice"
+                                   class="form-control">
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Image</label>
+                            <label class="col-sm-12 px-0" for="inputGroupFile02">
+                                <img width="100%" height="166" style="cursor: pointer;"
+                                     class="border border-secondary-subtle"
+                                     src="/img/upload-6699084.svg" />
+                            </label>
+                            <input type="file"
+                                   name="image"
+                                   hidden
+                                   accept="image/png, image/jpeg, image/jpg"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="Product.image"
+                                   class="form-control"
+                                   id="inputGroupFile02">
+                        </div>
+
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Status<ng-important /></label>
+                            <select ng-options="item as item.name for item in StatusList track by item.id"
+                                    ng-model="Product_Status"
+                                    ng-disabled="!EditMode && Saved"
+                                    required
+                                    name="status"
+                                    class="form-control">
+                                <option value="">--- Choose one status ---</option>
+                            </select>
+
+                            <div ng-messages="frmAddProduct.status.$error" class="text-danger" ng-if="submitted">
+                                <p ng-message="required">Status is required.</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-sm-6 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Show on home</label>
+                            <input type="checkbox"
+                                   ng-checked="Product.homeFlag"
+                                   ng-model="Product.homeFlag"
+                                   ng-disabled="!EditMode && Saved"
+                                   id="homeFlag">
+                            <label for="homeFlag"> Hiển thị trang chủ</label>
+                        </div>
+
+                        <div class="col-sm-6 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Hot</label>
+                            <input type="checkbox"
+                                   ng-checked="Product.hotFlag"
+                                   ng-model="Product.hotFlag"
+                                   ng-disabled="!EditMode && Saved"
+                                   id="hotFlag">
+                            <label for="hotFlag">Hot</label>
+                        </div>
+
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Tags</label>
+                            <input type="text"
+                                   name="tags"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="Product.tags"
+                                   class="form-control">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Description</label>
+                        <textarea type="text"
+                                  name="description"
+                                  rows="4"
+                                  ck-editor
+                                  id="txt_prodCateg_descrition_ckeditor"
+                                  ng-disabled="!EditMode && Saved"
+                                  ng-model="Product.description"
+                                  class="form-control"></textarea>
+
+                    </div>
+
+                    <div class="col-sm-12 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Content</label>
+                        <textarea type="text"
+                                  name="content"
+                                  rows="4"
+                                  ck-editor
+                                  id="txt_prodCateg_content_ckeditor"
+                                  ng-disabled="!EditMode && Saved"
+                                  ng-model="Product.contents"
+                                  class="form-control"></textarea>
+
+                    </div>
+                </div>
+
+                <div class="form-group row text-danger p-3">
+                    <h4>Các mục có gắn<ng-important />là những mục bắt buộc</h4>
+                </div>
+
+            </div>
+        </form>
+
+    </div>
+
+    <div id="tab_detail" class="tabcontent">
+        <form class="form-horizontal" novalidate name="frmDetailProduct" role="form">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Color</label>
+                        <input type="text"
+                               name="color"
+                               ng-disabled="!EditMode && Saved"
+                               ng-model="ProductDetail.color"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Size</label>
+                        <input type="text"
+                               name="size"
+                               ng-disabled="!EditMode && Saved"
+                               ng-model="ProductDetail.size"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Brand</label>
+                        <select select2 class="form-control col-md-12 col-xs-12"
+                                id="brand"
+                                name="brand"
+                                multiple
+                                ng-model="Brand"
+                                ng-disabled="!EditMode && Saved"
+                                ng-options="option as option.name for option in Brands | orderBy: 'name'">
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Material</label>
+                        <input type="text"
+                               name="material"
+                               ng-disabled="!EditMode && Saved"
+                               ng-model="ProductDetail.material"
+                               class="form-control"/>
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Other info</label>
+                        <textarea type="text"
+                               name="otherInfo"
+                               ng-disabled="!EditMode && Saved"
+                               ng-model="ProductDetail.otherInfo"
+                               class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="tab_analyze" class="tabcontent">
+        <form class="form-horizontal" novalidate name="frmAnalyzeProduct" role="form">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Created date</label>
+                        <input type="datetime"
+                               disabled
+                               name="createdDate"
+                               ng-model="Product.createdDate"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Created by</label>
+                        <input type="text" disabled
+                               name="createdBy"
+                               ng-model="Product.createdBy"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Modified date</label>
+                        <input type="datetime" disabled
+                               name="modifiedDate"
+                               ng-model="Product.modifiedDate"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Modified by</label>
+                        <input type="text" disabled
+                               name="modifiedBy"
+                               ng-model="Product.modifiedBy"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">View count</label>
+                        <input type="number" disabled
+                               name="viewCount" 
+                               ng-model="Product.viewCount"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Buy count</label>
+                        <input type="number" disabled
+                               name="buyCount"
+                               ng-model="Product.buyCount"
+                               class="form-control">
+                    </div>
+
+                    <div class="col-sm-6 pb-3">
+                        <label class="col-sm-12 col-form-label px-0">Review count</label>
+                        <input type="number" disabled
+                               name="reviewCount"
+                               ng-model="Product.reviewCount"
+                               class="form-control">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Page Content -->
+
+<script>
+    $(document).ready(() => {
+        var tabLink = $('.tablinks');
+        var tabPane = $('.tabcontent');
+
+        tabLink.each((index, ele) => {
+            var tab = $(ele);
+            var content = tabPane.eq(index);
+
+            tab.on('click', () => {
+                $('.tablinks.active').removeClass('active');
+                $('.tabcontent.active').removeClass('active');
+
+                tab.addClass('active');
+                content.addClass('active');
+            })
+        })
+    })
+</script>

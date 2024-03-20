@@ -1,10 +1,185 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <ul class="navbar-nav mr-auto">
+        <li class="nav-item dropdown no-arrow mx-1">
+            <a class="text-dark nav-link dropdown-toggle"
+               href="javascript:void(0);" id="alertsDropdown"
+               role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false">
+                <h4>
+                    Products ( <span>{{totalCount}} </span>)
+                    <i class="fa-duotone fa-caret-down"></i>
+                </h4>
+            </a>
 
-</body>
-</html>
+            <div class="dropdown-list dropdown-menu dropdown-menu-left shadow animated--grow-in"
+                 aria-labelledby="alertsDropdown">
+                <h6 class="dropdown-header">Fill by</h6>
+                <a class="dropdown-item d-flex align-items-center"
+                   href="javascript:void(0);"
+                   ng-model="status"
+                   ng-click="ChangeCombobox('status', item)"
+                   ng-repeat="item in status_list track by item.id">
+                    <div>
+                        <span class="">{{item.id >= 0 ? item.id : ''}} - {{item.name}}</span>
+                    </div>
+                </a>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" title="Reload" href="javascript:void(0);"
+               ng-click="Reload()" role="button">
+                <i class="fa-solid fa-arrows-rotate"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" title="Create new" href="javascript:void(0);"
+               ui-sref="product_overview_add" role="button">
+                <i class="fa-solid fa-plus"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" title="Update" href="javascript:void(0);"
+               ng-click="UpdateProduct()" role="button">
+                <i class="fa-regular fa-pen-to-square"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" title="Improved"
+               ng-click="Improved()" href="javascript:void(0);" role="button">
+                <i class="fa-light fa-check-double"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link"
+               title="Export excel"
+               ng-click="ExportExcel()"
+               href="javascript:void(0);"
+               role="button">
+                <i class="fa-regular fa-file-export"></i>
+            </a>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link text-danger" title="Delete"
+               href="javascript:void(0);"
+               ng-click="DeleteMultiple()"
+               role="button">
+                <i class="fa-regular fa-trash-can"></i>
+            </a>
+        </li>
+    </ul>
+
+</nav>
+
+<!-- Begin Page Content -->
+<div class="container-fluid">
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary"></h6>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover"
+                       id="dataTable"
+                       width="100%"
+                       cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="text-center " width="5%">
+                                <input type="checkbox" id="select_all"
+                                       ng-click="selected_all(is_selected_all)"
+                                       ng-model="is_selected_all" />
+                            </th>
+                            <th class="text-center" width="5%">#</th>
+                            <th>
+                                <div style="cursor: pointer;"
+                                     ng-click="ChangeSorted()"
+                                     class="w-100 d-flex justify-content-between">
+                                    <span>Name</span>
+                                    <span>
+                                        <i ng-show="order_type == 'ASC' ? true : false" class="fa-duotone fa-arrow-down-short-wide"></i>
+                                        <i ng-show="order_type == 'DESC ? true : false'" class="fa-solid fa-arrow-up-wide-short"></i>
+                                    </span>
+                                </div>
+
+                                <hr />
+
+                                <div>
+                                    <input class="form-control input-group-sm fs-5"
+                                           ng-model="search_value.name"
+                                           ng-change="TblInternalSearch('name')" type="search" />
+                                </div>
+                            </th>
+                            <th class="text-center" width="12%">
+                                Created date
+                                <hr />
+
+                                <div>
+                                    <input class="form-control input-group-sm fs-5" type="date" />
+                                </div>
+
+                            </th>
+                            <th class="text-center" width="12%">
+                                Created by
+
+                                <hr />
+
+                                <div>
+                                    <input class="form-control input-group-sm fs-5" type="search" />
+                                </div>
+                            </th>
+                            <th class="text-center" width="12%">
+                                Status
+
+                                <hr />
+
+                                <div class="hide">
+                                    <input class="form-control input-group-sm fs-5" type="search" />
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr ng-repeat="item in product_list track by item.id"
+                            ng-dblclick="Dlb_Select(item.id)"
+                            ng-click="SelectProduct(item)"
+                            ng-class="{'selected-item': item.selected}">
+                            <td class="text-center" width="5%">
+                                <input type="checkbox" ng-model="item.selected" />
+                            </td>
+                            <td class="text-center">{{item.index}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.createdDate | date:'dd/MM/yyyy'}}</td>
+                            <td>{{item.createdBy}}</td>
+                            <td class="text-center">
+                                <span ng-class="{'badge badge-danger':item.Status==0, 'badge bg-success':item.Status==1, 'badge bg-warning':item.Status==2, 'badge bg-primary':item.Status==15}">
+                                    {{item.status | StatusFilter}}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <p ng-hide="pagesCount == 0">Trang {{page}} / {{pagesCount}}</p>
+                    <pager-directive page="{{page}}" custom-path="{{customPath}}"
+                                     pages-count="{{pagesCount}}" total-count="{{totalCount}}"
+                                     search-func="GetProductList(page, status.id)"></pager-directive>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

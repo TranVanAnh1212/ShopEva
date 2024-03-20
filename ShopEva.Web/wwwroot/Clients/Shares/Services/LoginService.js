@@ -1,8 +1,8 @@
 ﻿(function (app) {
     'use strict'
 
-    app.service('loginService', ['$http', '$q', 'authService', 'authData', 'CRUDService',
-        function ($http, $q, authService, authData, CRUDService) {
+    app.service('loginService', ['$http', '$q', 'authService', 'authData', 'CRUDService', 'jwtHelper',
+        function ($http, $q, authService, authData, CRUDService, jwtHelper) {
             var userInfo;
             var deferred;
 
@@ -26,8 +26,7 @@
 
                         var tokenPayload;
 
-                        if (tokenInfo)
-                            tokenPayload = jwtHelper.decodeToken(userInfo.access_token);
+                        tokenPayload = jwtHelper.decodeToken(userInfo.access_token);
 
                         userInfo.roles = tokenPayload;
 
@@ -74,7 +73,7 @@
                     }, function (error, status) {
                         authData.authenticationData.is_authenticated = false;
                         authData.authenticationData.user_name = "";
-                        
+
                         deferred.resolve(error);
                     })
 

@@ -9,14 +9,14 @@
 
             vm.authentication = authData.authenticationData;
 
-            //vm.LogOut = function () {
-            //    $ngBootbox.confirm('Logout ?')
-            //        .then(() => {
-            //            loginService.logOut();
-            //            $state.go('LoginPage');
-            //        })
+            vm.LogOut = function () {
+                $ngBootbox.confirm({ message: "Bạn có chắc muốn đăng xuất?", title: 'Đăng xuất' })
+                    .then(() => {
+                        loginService.logOut();
+                        $state.go('LoginPage');
+                    })
 
-            //};
+            };
 
         }]);
 })(angular.module('ShopEva'));

@@ -1,32 +1,31 @@
-:root {
+﻿:root {
     --bs-secondary-rgb: 108, 117, 125;
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 15px;
-  }
+    html {
+        font-size: 15px;
+    }
 }
 
-.btn:focus, 
-.btn:active:focus, 
-.btn-link.nav-link:focus, 
-.form-control:focus, 
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
 .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-
 }
 
 .pagerDirective .active {
@@ -43,7 +42,7 @@ body {
 
 
 .topbar.navbar-light .navbar-nav .nav-item .nav-link {
-     color: #333; 
+    color: #333;
 }
 
 
@@ -77,4 +76,40 @@ body {
     color: red;
     background: red;
     height: 0.2rem;
+}
+
+/*Tab*/
+
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+    /* Liên kết các tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 7px 16px;
+    transition: 0.3s;
+}
+
+/* Thay đổi màu nền của tab được chọn */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Hiển thị nội dung của tab */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tabcontent.active {
+    display: block;
 }

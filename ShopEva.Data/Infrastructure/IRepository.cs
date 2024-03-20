@@ -15,11 +15,12 @@ namespace ShopEva.Data.Infrastructure
         /// <param name="entity"></param>
         /// <returns></returns>
         T Add(T entity);
+        T AddQuery(string query);
         /// <summary>
         /// Marks an entity as modified
         /// </summary>
         /// <param name="entity"></param>
-        void Update(T entity);
+        T Update(T entity);
         /// <summary>
         /// Marks an entity to be removed
         /// </summary>
