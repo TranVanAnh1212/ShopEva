@@ -15,22 +15,13 @@
 
     <!-- Custom styles for this template-->
     <link href="~/css/select2.min.css" rel="stylesheet" />
-    <link href="~/css/admin_css/sb-admin-2.min.css" rel="stylesheet" />
     <link href="~/lib/ngckeditor/ng-ckeditor.css" rel="stylesheet" />
-    @* <link href="~/lib/angular-toastr/angular-toastr.min.css" rel="stylesheet" /> *@
-    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" rel="stylesheet" />
+    <link href="~/lib/toastr.js/toastr.min.css" rel="stylesheet" />
     <link href="~/lib/angular-loading-bar/loading-bar.min.css" rel="stylesheet" />
-
+    <link href="~/css/admin_css/sb-admin-2.min.css" rel="stylesheet" />
     <link href="~/css/site.css" rel="stylesheet" />
 
     <base href="/Dashboard"/>
-
-    <style>
-        #loading-bar .bar {
-            /* position: absolute; */
-        }
-    </style>
-
 </head>
 
 <body id="page-top" ng-app="ShopEva" ng-controller="RootController">
@@ -58,6 +49,9 @@
     <script src="~/lib/angular-messages/angular-messages.min.js"></script>
     <script src="~/lib/ngBootbox/ngBootbox.js"></script>
     <script src="~/lib/angular-sanitize/angular-sanitize.min.js"></script>
+    <script src="~/lib/angular-translate/angular-translate.min.js"></script>
+    <script src="~/lib/angular-cookies/angular-cookies.min.js"></script>
+    <script src="~/lib/angular-resource/angular-resource.min.js"></script>
     @* <script src="~/js/angular-datatables.min.js"></script>
     <script src="~/js/jquery.dataTables.min.js"></script> *@
 
@@ -89,6 +83,7 @@
     <script src="~/clients/shares/services/authdata.js"></script>
     <script src="~/clients/shares/services/authservice.js"></script>
     <script src="~/clients/shares/services/loginservice.js"></script>
+    <script src="~/clients/shares/services/translationservice.js"></script>
 
     <!-- Script controller -->
     <script src="~/clients/components/loginpage/loginpagecontroller.js"></script>

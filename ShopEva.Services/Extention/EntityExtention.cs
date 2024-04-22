@@ -1,16 +1,22 @@
 ﻿using ShopEva.Data.ViewModels;
 using ShopEva.Models.Model;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using ShopEva.Services.IServices;
 
 namespace ShopEva.Services.Extention
 {
     public static class EntityExtention
     {
+        public static void ApplicationUserMap(this ApplicationUser entity, UserViewModel vm)
+        {
+            entity.Address = vm.Address;
+            entity.Fullname = vm.Fullname;
+            entity.PhoneNumber = vm.PhoneNumber;
+            entity.Birthday = vm.Birthday;
+            entity.UserName = vm.UserName;
+            entity.Email = vm.Email;
+            entity.Avatar = vm.Avatar;
+        }
+
         public static void ProductCategoryMap(this ProductCategory entity, ProductCategoryViewModel vm)
         {
             entity.ID = vm.ID;
@@ -69,7 +75,7 @@ namespace ShopEva.Services.Extention
             entity.Other_Info = vm.Other_Info;
         }
 
-        public static void ProductProductCategoryMap(this ProductProductCategory entity, ProductProductCategoryViewModel vm)
+        public static void ProductProductCategoryMap(this ProductProductCategory entity, ProductCategoriesViewModel vm)
         {
             entity.CategoryID = vm.CategoryID;
             entity.ProductID = vm.ProductID;

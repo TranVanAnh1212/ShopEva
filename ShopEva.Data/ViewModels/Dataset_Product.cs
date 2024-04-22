@@ -9,6 +9,6 @@ namespace ShopEva.Data.ViewModels
     public class Dataset_Product
     {
         public ProductViewModel ProductViewModel { get; set; }
-        public List<ProductProductCategoryViewModel>? Product2CategoryViewModel { get; set; }
+        public List<ProductCategoriesViewModel>? Product2CategoryViewModel { get; set; }
     }
 }

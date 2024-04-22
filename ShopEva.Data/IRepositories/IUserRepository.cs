@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace ShopEva.Data.IRepositories
 {
-    public interface IProductProductCategoryRepository : IRepository<ProductProductCategory>
+    public interface IUserRepository : IRepository<ApplicationUser>
     {
-
+        Task<ApplicationUser> GetUserById(string id);
     }
 }

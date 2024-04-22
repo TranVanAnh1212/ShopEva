@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\Admin\Data\**" />
+    <Compile Remove="Areas\Admin\Views\LoginPage_Admin\**" />
     <Compile Remove="Demo\**" />
     <Compile Remove="Migrations\**" />
     <Compile Remove="wwwroot\lib\ckeditor5-build-classic\**" />
@@ -19,6 +21,8 @@
     <Compile Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard\**" />
     <Compile Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard_easyimage\**" />
     <Compile Remove="wwwroot\lib\ckfinder_aspnet_3.5.1.2\**" />
+    <Content Remove="Areas\Admin\Data\**" />
+    <Content Remove="Areas\Admin\Views\LoginPage_Admin\**" />
     <Content Remove="Demo\**" />
     <Content Remove="Migrations\**" />
     <Content Remove="wwwroot\lib\ckeditor5-build-classic\**" />
@@ -31,6 +35,8 @@
     <Content Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard\**" />
     <Content Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard_easyimage\**" />
     <Content Remove="wwwroot\lib\ckfinder_aspnet_3.5.1.2\**" />
+    <EmbeddedResource Remove="Areas\Admin\Data\**" />
+    <EmbeddedResource Remove="Areas\Admin\Views\LoginPage_Admin\**" />
     <EmbeddedResource Remove="Demo\**" />
     <EmbeddedResource Remove="Migrations\**" />
     <EmbeddedResource Remove="wwwroot\lib\ckeditor5-build-classic\**" />
@@ -43,6 +49,8 @@
     <EmbeddedResource Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard\**" />
     <EmbeddedResource Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard_easyimage\**" />
     <EmbeddedResource Remove="wwwroot\lib\ckfinder_aspnet_3.5.1.2\**" />
+    <None Remove="Areas\Admin\Data\**" />
+    <None Remove="Areas\Admin\Views\LoginPage_Admin\**" />
     <None Remove="Demo\**" />
     <None Remove="Migrations\**" />
     <None Remove="wwwroot\lib\ckeditor5-build-classic\**" />
@@ -55,6 +63,10 @@
     <None Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard\**" />
     <None Remove="wwwroot\lib\ckeditor_4.24.0-lts_standard_easyimage\**" />
     <None Remove="wwwroot\lib\ckfinder_aspnet_3.5.1.2\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Areas\Admin\Controllers\LoginPage_AdminController.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -74,11 +86,10 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Assets\Admin\Libs\" />
   </ItemGroup>
@@ -2212,6 +2223,13 @@
     <None Include="wwwroot\scss\_navs.scss" />
     <None Include="wwwroot\scss\_utilities.scss" />
     <None Include="wwwroot\scss\_variables.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShopEva.Common\ShopEva.Common.csproj" />
+    <ProjectReference Include="..\ShopEva.Data\ShopEva.Data.csproj" />
+    <ProjectReference Include="..\ShopEva.Models\ShopEva.Models.csproj" />
+    <ProjectReference Include="..\ShopEva.Services\ShopEva.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>

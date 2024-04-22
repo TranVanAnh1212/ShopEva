@@ -8,7 +8,7 @@
                aria-haspopup="true"
                aria-expanded="false">
                 <h4>
-                    Product category ( <span>{{totalCount}} </span>)
+                    {{translation.Menu_Product_Category}} ( <span>{{totalCount}} </span>)
                     <i class="fa-duotone fa-caret-down"></i>
                 </h4>
             </a>
@@ -60,10 +60,10 @@
         </li>
 
         <li class="nav-item">
-            <a class="nav-link" 
-               title="Export excel" 
+            <a class="nav-link"
+               title="Export excel"
                ng-click="ExportExcel()"
-               href="javascript:void(0);" 
+               href="javascript:void(0);"
                role="button">
                 <i class="fa-regular fa-file-export"></i>
             </a>
@@ -96,7 +96,7 @@
                        cellspacing="0">
                     <thead>
                         <tr>
-                            <th class="text-center " width="5%" >
+                            <th class="text-center " width="5%">
                                 <input type="checkbox" id="select_all"
                                        ng-click="selected_all(is_selected_all)"
                                        ng-model="is_selected_all" />
@@ -105,8 +105,8 @@
                             <th>
                                 <div style="cursor: pointer;"
                                      ng-click="ChangeSorted()"
-                                     class="w-100 d-flex justify-content-between">
-                                    <span>Name</span>
+                                     class="w-100 d-flex justify-content-between text-center">
+                                    <span class="w-100 d-block text-center">{{translation.Name}}</span>
                                     <span>
                                         <i ng-show="order_type == 'ASC' ? true : false" class="fa-duotone fa-arrow-down-short-wide"></i>
                                         <i ng-show="order_type == 'DESC ? true : false'" class="fa-solid fa-arrow-up-wide-short"></i>
@@ -116,41 +116,34 @@
                                 <hr />
 
                                 <div>
-                                    <input class="form-control input-group-sm fs-5" 
+                                    <input class="form-control input-group-sm fs-5"
                                            ng-model="search_value.name"
                                            ng-change="TblInternalSearch('name')" type="search" />
                                 </div>
                             </th>
                             <th class="text-center" width="12%">
-                                Created date
+                                {{translation.Created_Date}}
                                 <hr />
-
                                 <div>
                                     <input class="form-control input-group-sm fs-5" type="date" />
                                 </div>
-
                             </th>
                             <th class="text-center" width="12%">
-                                Created by
-
+                                {{translation.Created_By}}
                                 <hr />
-
                                 <div>
                                     <input class="form-control input-group-sm fs-5" type="search" />
                                 </div>
                             </th>
                             <th class="text-center" width="12%">
-                                Status
-                                
+                                {{translation.Status}}
                                 <hr />
-
                                 <div class="hide">
                                     <input class="form-control input-group-sm fs-5" type="search" />
                                 </div>
                             </th>
                         </tr>
                     </thead>
-
                     <tbody>
                         <tr ng-repeat="item in product_category_list track by item.id"
                             ng-dblclick="Dlb_Select(item.id)"
@@ -160,11 +153,11 @@
                                 <input type="checkbox" ng-model="item.selected" />
                             </td>
                             <td class="text-center">{{item.index}}</td>
-                            <td>{{item.name}}</td>
-                            <td>{{item.createdDate | date:'dd/MM/yyyy'}}</td>
-                            <td>{{item.createdBy}}</td>
+                            <td class="text-center">{{item.name}}</td>
+                            <td class="text-center">{{item.createdDate | date:'dd/MM/yyyy'}}</td>
+                            <td class="text-center">{{item.creatorName}}</td>
                             <td class="text-center">
-                                <span ng-class="{'badge badge-danger':item.Status==0, 'badge bg-success':item.Status==1, 'badge bg-warning':item.Status==2, 'badge bg-primary':item.Status==15}">
+                                <span ng-class="{'badge badge-danger rounded-pill':item.status==0, 'badge badge-success rounded-pill':item.status==1, 'badge badge-warning rounded-pill':item.status==2, 'badge badge-primary rounded-pill':item.status==15}">
                                     {{item.status | StatusFilter}}
                                 </span>
                             </td>

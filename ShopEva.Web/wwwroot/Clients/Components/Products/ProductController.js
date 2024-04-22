@@ -54,7 +54,7 @@
                             }
                         }
 
-                        console.log(list_product_short);
+                        //console.log(list_product_short);
                         CRUDService.del('/api/ProductAPI/delete', config, (res) => {
                             NotifyService.Shows('success', `Deleted ${res.data.result} record.`);
                             GetProductList(vm.page, vm.status.id);
@@ -126,7 +126,7 @@
                 }
 
                 CRUDService.get('/api/ProductAPI/get_all', config, (res) => {
-                    console.log(res);
+                    //console.log(res);
                     var value = res.data.result;
                     vm.totalCount = value.totalCount;
                     vm.product_list = value.data;

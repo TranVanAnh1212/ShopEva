@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopEva.Services.IServices
 {
-    public interface IProductProductCategoryService
+    public interface IProductCategoriesService
     {
         Task<IEnumerable<ProductProductCategory>> GetByProductIDAsync(Guid productID);
         ProductProductCategory Create(ProductProductCategory productProductCategory);

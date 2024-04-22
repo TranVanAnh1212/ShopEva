@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace ShopEva.Data.Repositories
 {
-    public class ProductProductCategoryRepository : RepositoryBase<ProductProductCategory>, IProductProductCategoryRepository
+    public class ProductCategoriesRepository : RepositoryBase<ProductProductCategory>, IProductCategoriesRepository
     {
-        public ProductProductCategoryRepository(IDbFactory dbFactory) : base(dbFactory)
+        public ProductCategoriesRepository(IDbFactory dbFactory) : base(dbFactory)
         {
             
         }

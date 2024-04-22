@@ -13,12 +13,11 @@ namespace ShopEva.Services.IServices
         ProductCategory Delete(Guid id);
         void Update(ProductCategory pc);
         Task<IEnumerable<ProductCategory>> GetParentAsync(Guid? id);
-        IEnumerable<ProductCategory> GetAll(int status, string? keyword, string? order_by, string? order_type);
-        Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword);
+        Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword, string? order_by, string? order_type);
         Task<IEnumerable<ProductCategory>> GetMany(int status);
         Task<IEnumerable<ProductCategory>> GetManyAsync(int status);
         Task<IEnumerable<ProductCategory>> GetAllByParentId(Guid parentId);
-        ProductCategory GetById(Guid id);
+        Task<ProductCategory> GetByIdAsync(Guid id);
         void SaveChanged();
     }
 }

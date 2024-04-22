@@ -3,7 +3,7 @@
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <h3>Product detail</h3>
+            <h3 class="m-0">{{translation.Product_Category_Detail}}</h3>
         </li>
     </ul>
 
@@ -67,8 +67,8 @@
         <div class="card-body">
             <div class="form-group row">
                 <div class="col-sm-6 row">
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Name<ng-important /></label>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">{{translation.Name}}<ng-important /></label>
                         <input ng-model="ProductCategory.name"
                                ng-maxlength="501"
                                required
@@ -76,7 +76,7 @@
                                ng-change="GetSEOTitle()"
                                class="form-control"
                                name="name"
-                               placeholder="Name product category ...">
+                               placeholder="{{translation.Name}} ...">
 
                         <div ng-messages="frmAddProductcategory.name.$error" class="text-danger" ng-if="submitted">
                             <span ng-message="required">Category name is required.</span>
@@ -84,9 +84,10 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">SEO Title<ng-important /></label>
-
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.SEO_Title}}<ng-important />
+                        </label>
                         <input type="text"
                                required
                                name="alias"
@@ -95,72 +96,86 @@
                                ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.alias"
                                class="form-control"
-                               placeholder="Alias ...">
-
+                               placeholder="{{translation.SEO_Title}} ...">
                         <div ng-messages="frmAddProductcategory.alias.$error" class="text-danger" ng-if="submitted">
                             <span ng-message="required">SEO Title is required.</span>
                             <span ng-message="maxlength">Category alias no more than 501 characters.</span>
                         </div>
                     </div>
-
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Parent</label>
-
-                        <!--<select ng-model="Parent" select2
-                                name="parentID"
-                                id="ParentDropdown"
-                                ng-options="option as option.name for option in ParentList track by option.id"
-                                class="form-control">
-                            <option value="">--- Choose parent category ---</option>
-                        </select>
-                        <input name="parentID" type="hidden" ng-model="ProductCategory.parentID" />-->
-
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">{{translation.Parent}}</label>
                         <select select2 class="form-control col-md-12 col-xs-12"
                                 id="product_category_overview_add"
                                 name="product_category_overview_add"
                                 ng-model="Parent"
                                 ng-disabled="!EditMode && Saved"
                                 ng-options="option as option.name for option in ParentList | orderBy: 'name'">
-                            <option value="">---- Choose parent category ----</option>
                         </select>
-
                     </div>
-
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Display order</label>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Display_Order}}
+                        </label>
                         <input type="number"
                                name="displayOrder"
                                ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.displayOrder"
                                class="form-control"
-                               placeholder="Display order ...">
+                               placeholder="{{translation.Display_Order}} ...">
                     </div>
-
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Meta keyword</label>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Meta_Keyword}}
+                        </label>
                         <input type="text"
                                name="metaKeyword"
                                ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.metaKeyWord"
                                class="form-control"
-                               placeholder="Meta keyword ...">
+                               placeholder="{{translation.Meta_Keyword}} ...">
                     </div>
-
-
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Meta description</label>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0"> {{translation.Meta_Description}}</label>
                         <textarea ng-model="ProductCategory.metaDescription"
                                   ng-disabled="!EditMode && Saved"
                                   name="metaDescription"
                                   rows="1"
                                   class="form-control"
-                                  placeholder="Meta description ..."></textarea>
+                                  placeholder="{{translation.Meta_Description}} ..."></textarea>
+                    </div>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Status}}<ng-important />
+                        </label>
+                        <select ng-options="item as item.name for item in StatusList track by item.id"
+                                ng-model="Productcategory_Status"
+                                ng-disabled="!EditMode && Saved"
+                                required
+                                name="status"
+                                class="form-control">
+                            <!--<option value="">--- Choose one status ---</option>-->
+                        </select>
+                        <div ng-messages="frmAddProductcategory.status.$error" class="text-danger" ng-if="submitted">
+                            <p ng-message="required">Status is required.</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Show_On_Home}}
+                        </label>
+                        <input type="checkbox"
+                               ng-checked="ProductCategory.homeFlag"
+                               ng-model="ProductCategory.homeFlag"
+                               ng-disabled="!EditMode && Saved"
+                               id="homeFlag">
+                        <label for="homeFlag"> {{translation.Show_On_Home}}</label>
                     </div>
                 </div>
-
                 <div class="col-sm-6 row">
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Description</label>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Description}}
+                        </label>
                         <textarea type="text"
                                   name="description"
                                   rows="4"
@@ -169,15 +184,13 @@
                                   ng-disabled="!EditMode && Saved"
                                   ng-model="ProductCategory.description"
                                   class="form-control"
-                                  placeholder="Description ..."></textarea>
-                        
-
+                                  placeholder=" {{translation.Description}} ..."></textarea>
                         <!--<ck-editor ng-model="ProductCategory.description"></ck-editor>-->
-
                     </div>
-
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Image</label>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Image}}
+                        </label>
                         <label class="col-sm-12 px-0" for="inputGroupFile02">
                             <img width="100%" height="166" style="cursor: pointer;"
                                  class="border border-secondary-subtle"
@@ -185,50 +198,20 @@
                         </label>
                         <input type="file"
                                name="image"
-                               placeholder="Image ..."
+                               placeholder="{{translation.Image}} ..."
                                accept="image/png, image/jpeg, image/jpg"
                                ng-disabled="!EditMode && Saved"
                                ng-model="ProductCategory.image"
                                class="form-control"
                                id="inputGroupFile02">
                     </div>
-
-
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Status<ng-important /></label>
-                        <select ng-options="item as item.name for item in StatusList track by item.id"
-                                ng-model="Productcategory_Status"
-                                ng-disabled="!EditMode && Saved"
-                                required
-                                name="status"
-                                class="form-control">
-                            <option value="">--- Choose one status ---</option>
-                        </select>
-
-                        <div ng-messages="frmAddProductcategory.status.$error" class="text-danger" ng-if="submitted">
-                            <p ng-message="required">Status is required.</p>
-                        </div>
-                    </div>
-
-
-                    <div class="col-sm-12">
-                        <label class="col-sm-12 col-form-label px-0">Show on home</label>
-                        <input type="checkbox"
-                               ng-checked="ProductCategory.homeFlag"
-                               ng-model="ProductCategory.homeFlag"
-                               ng-disabled="!EditMode && Saved"
-                               id="homeFlag">
-                        <label for="homeFlag"> Hiển thị trang chủ</label>
-                    </div>
+                   
                 </div>
             </div>
-
             <div class="form-group row text-danger p-3">
-                <h4>Các mục có gắn<ng-important />là những mục bắt buộc</h4>
+                <h4>{{translation.ng_Important_Desc}}</h4>
             </div>
-
         </div>
     </form>
-
 </div>
 <!-- End Page Content -->

@@ -6,7 +6,7 @@
         'ShopEva.Product'
     ])
         .config(config)
-        .config(configAuthentication);
+        .config(configAuthentication)
 
     config.$inject = ['$stateProvider', '$urlRouterProvider'];
 
@@ -33,7 +33,7 @@
     }
 
     function configAuthentication($httpProvider) {
-        $httpProvider.interceptors.push(function ($q, NotifyService, authData, $state) {
+        $httpProvider.interceptors.push(function ($q, $injector, $state) {
             return {
                 request: function (config) {
                     return config;
@@ -42,16 +42,17 @@
                     return $q.reject(rejection);
                 },
                 response: function (response) {
-                    if (response.status === 401 || !authData.authenticationData.is_authenticated) {
-                        NotifyService.Shows('error', 'Yêu cầu đăng nhập');
+                    if (response.status === 401) {
                         $state.go('LoginPage');
                     }
                     //the same response/modified/or a new one need to be returned.
                     return response;
                 },
                 responseError: function (rejection) {
-                    if (rejection.status === 401 || !authData.authenticationData.is_authenticated) {
-                        NotifyService.Shows('error', 'Yêu cầu đăng nhập');
+                    //var authService = $injector.get('authService');
+                    //authService.validateRequest();
+
+                    if (rejection.status === 401) {
                         $state.go('LoginPage');
                     }
 

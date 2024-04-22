@@ -78,7 +78,7 @@ namespace ShopEva.Data.Repositories
                 };
             }
 
-            var res = await _signInManager.PasswordSignInAsync(userVM.UserName, userVM.Password, false, false);
+            var res = await _signInManager.PasswordSignInAsync(userVM.UserName, userVM.Password, isPersistent: userVM.RememberMe, lockoutOnFailure: false);
 
             if (!res.Succeeded)
             {
@@ -94,8 +94,11 @@ namespace ShopEva.Data.Repositories
                 };
             }
 
+            user.LatestLogin = DateTime.UtcNow;
+
             var authClaim = new List<Claim>
             {
+                new Claim(ClaimTypes.Expired, "30"),
                 new Claim(ClaimTypes.NameIdentifier, userVM.UserName),
                 new Claim(ClaimTypes.Name, userVM.UserName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
@@ -113,7 +116,7 @@ namespace ShopEva.Data.Repositories
             var token = new JwtSecurityToken(
                 issuer: _configuration["Identity_Jwt:ValidIssuer"],
                 audience: _configuration["Identity_Jwt:ValidAudience"],
-                expires: DateTime.Now.AddMinutes(60),
+                expires: DateTime.Now.AddMinutes(30),
                 claims: authClaim,
                 signingCredentials: new SigningCredentials(authKey, SecurityAlgorithms.HmacSha512Signature)
                 );
@@ -128,14 +131,14 @@ namespace ShopEva.Data.Repositories
                 Success = true,
                 Result = token_result
             };
-
         }
 
         public async Task<IdentityResult> RegisterAsync(RegisterUserViewModel userVM)
         {
             var user = new ApplicationUser
             {
-                UserName = userVM.UserName
+                UserName = userVM.UserName,
+                Email = userVM.Email,
             };
 
             IdentityResult result = await _userManager.CreateAsync(user, userVM.Password);
@@ -158,5 +161,11 @@ namespace ShopEva.Data.Repositories
             _httpContextAccessor.HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
             return new RequestMessage { Success = true };
         }
+
+        public Task<RequestMessage> RefreshToken(LoginUserViewModel user)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

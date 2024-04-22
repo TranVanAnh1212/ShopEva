@@ -1,8 +1,8 @@
 ﻿(function (app) {
     'use strict'
 
-    app.service('loginService', ['$http', '$q', 'authService', 'authData', 'CRUDService', 'jwtHelper',
-        function ($http, $q, authService, authData, CRUDService, jwtHelper) {
+    app.service('loginService', ['$http', '$q', 'authService', 'authData', 'CRUDService', 'jwtHelper', 'NotifyService'
+,        function ($http, $q, authService, authData, CRUDService, jwtHelper, NotifyService) {
             var userInfo;
             var deferred;
 
@@ -24,18 +24,14 @@
 
                         authService.setTokenInfo(userInfo);
 
-                        var tokenPayload;
-
-                        tokenPayload = jwtHelper.decodeToken(userInfo.access_token);
-
-                        userInfo.roles = tokenPayload;
-
                         authData.authenticationData.is_authenticated = true;
                         authData.authenticationData.user_name = username;
                         authData.authenticationData.access_token = userInfo.access_token;
-                        authData.authenticationData.roles = userInfo.roles;
+                        authData.authenticationData.roles = jwtHelper.decodeToken(userInfo.access_token)['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'];
 
                         deferred.resolve(null);
+
+                        NotifyService.Shows('success', 'Login successfully, you logged in with ADMIN permissions');
 
                     }, function (error, status) {
                         authData.authenticationData.is_authenticated = false;

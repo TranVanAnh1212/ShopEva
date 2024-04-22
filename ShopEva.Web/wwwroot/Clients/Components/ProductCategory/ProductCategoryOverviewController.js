@@ -23,7 +23,6 @@
 
         vm.SaveAdd = SaveAdd;
         vm.Edit = Edit;
-        vm.Reload = Reload;
         vm.Close = Close;
         vm.GetSEOTitle = GetSEOTitle;
         vm.updateDescriptionValue = updateDescriptionValue;
@@ -38,7 +37,7 @@
             }
             finder.popup();
         }
-        
+
         function GetSEOTitle() {
             vm.ProductCategory.alias = CommonService.GetSEOTitle(vm.ProductCategory.name);
         }
@@ -79,8 +78,6 @@
                     }
                 })
 
-                console.log(vm.Parent);
-
             }, (error) => {
                 NotifyService.Shows('error', 'Cannot get record');
             });
@@ -108,13 +105,14 @@
                     vm.ProductCategory = angular.copy(vm.ProductCategoryGlobal);
                     vm.ProductCategoryID = vm.ProductCategory.id;
 
+                    localStorage.setItem('ls.ProductCategory', JSON.stringify(vm.ProductCategory));
+
                     NotifyService.Shows('success', 'Add new successfully.');
                 }, (err) => {
                     NotifyService.Shows('error', 'Cannot create, some wrong...');
                 });
             else
                 CRUDService.put('/api/ProductCategoryAPI/update', vm.ProductCategory, (result) => {
-                    console.log(result);
                     var value = result.data;
                     if (value.result.id === vm.ProductCategoryID) {
 
@@ -126,6 +124,8 @@
                         vm.ProductCategoryGlobal = value.result;
                         vm.ProductCategory = angular.copy(vm.ProductCategoryGlobal);
                         vm.ProductCategoryID = vm.ProductCategory.id;
+
+                        localStorage.setItem('ls.ProductCategory', JSON.stringify(vm.ProductCategory));
 
                         NotifyService.Shows('success', 'Update product category successfully!');
                     }
@@ -141,15 +141,23 @@
             vm.Saved = false;
         }
 
-        function Reload() {
+        $(window).on('load', function () {
+            var ls = JSON.parse(localStorage.getItem('ls.ProductCategory'));
 
-        }
+            if (ls) {
+                vm.ProductCategoryGlobal = ls;
+                vm.ProductCategory = angular.copy(vm.ProductCategoryGlobal);
+
+                vm.AddAction = false;
+                vm.EditMode = false;
+                vm.submitted = false;
+                vm.Saved = true;
+            }
+        });
 
         function Close() {
             if (vm.EditMode) {
-                //
-                
-
+                localStorage.removeItem('ls.ProductCategory');
                 $state.go('product_category');
             }
             else $state.go('product_category');
@@ -180,7 +188,6 @@
             }
 
             CRUDService.get('/api/ProductCategoryAPI/get_parent', config, (result) => {
-                //console.log(result.data);
                 vm.ParentList = result.data.result;
             }, (err) => {
                 NotifyService.Shows('error', 'Cannot get data, an error occurred!');

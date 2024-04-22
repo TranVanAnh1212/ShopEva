@@ -9,11 +9,9 @@ namespace ShopEva.Services.IServices
 {
     public interface IProductDetailService
     {
-        Task<IEnumerable<ProductDetail>> GetAllAsync();
-        Task<ProductDetail> GetByIDAsync();
+        Task<ProductDetail> GetByProductIDAsync(Guid id);
         ProductDetail Add(ProductDetail productDetail);
         ProductDetail Update(ProductDetail productDetail);
-        ProductDetail Delete(int id);
         void SaveChanged();
     }
 }

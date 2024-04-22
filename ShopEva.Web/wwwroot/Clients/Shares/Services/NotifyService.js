@@ -4,7 +4,7 @@
     function NotifyService() {
         toastr.options = {
             "closeButton": true,
-            "debug": false,
+            "debug": true,
             "newestOnTop": true,
             "progressBar": true,
             "positionClass": "toast-top-center",
@@ -19,19 +19,19 @@
             "hideMethod": "fadeOut"
         }
 
-        function Shows(type, value) {
+        function Shows(type, msg) {
             switch (type) {
                 case "error":
-                    if (Array.isArray(value)) {
-                        value.forEach((item) => {
-                            toastr[type](value, type);
+                    if (Array.isArray(msg)) {
+                        msg.forEach((item) => {
+                            toastr[type](msg, type);
                         });
                     } else {
-                        toastr[type](value, type);
+                        toastr[type](msg, type);
                     }
                     break;
                 default:
-                    toastr[type](value, type);
+                    toastr[type](msg, type);
                     break;
             }
         }

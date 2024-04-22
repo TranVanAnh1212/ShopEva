@@ -14,6 +14,7 @@ namespace ShopEva.Data.IRepositories
     {
         Task<IdentityResult> RegisterAsync(RegisterUserViewModel user);
         Task<RequestMessage> LoginAsync(LoginUserViewModel user);
+        Task<RequestMessage> RefreshToken(LoginUserViewModel user);
         RequestMessage LogOutAsync();
         Task<ApplicationUser> GetByUserName(string username);
     }

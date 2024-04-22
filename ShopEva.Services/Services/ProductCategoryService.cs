@@ -26,9 +26,9 @@ namespace ShopEva.Services.Services
             return _productCategoryRepository.Delete(id);
         }
 
-        public IEnumerable<ProductCategory> GetAll(int status, string? keyword, string? order_by, string? order_type)
+        public async Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword, string? order_by, string? order_type)
         {
-            var product_category_list = _productCategoryRepository.GetAll();
+            var product_category_list = await _productCategoryRepository.GetAllAsync();
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -95,19 +95,14 @@ namespace ShopEva.Services.Services
             return product_category_list;
         }
 
-        public async Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword)
-        {
-            return await _productCategoryRepository.GetAllAsync();
-        }
-
         public Task<IEnumerable<ProductCategory>> GetAllByParentId(Guid parentId)
         {
             throw new NotImplementedException();
         }
 
-        public ProductCategory GetById(Guid id)
+        public async Task<ProductCategory> GetByIdAsync(Guid id)
         {
-            return _productCategoryRepository.GetSingleById(id);
+            return await _productCategoryRepository.GetSingleByIdAsync(id);
         }
 
         public Task<IEnumerable<ProductCategory>> GetMany(int status)

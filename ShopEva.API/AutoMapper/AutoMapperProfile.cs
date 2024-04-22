@@ -11,8 +11,9 @@ namespace ShopEva.API.AutoMapper
             CreateMap<ProductCategory, ProductCategoryViewModel>();
             CreateMap<Product, ProductViewModel>();
             CreateMap<ProductDetail, ProductDetailViewModel>();
-            CreateMap<ProductProductCategory, ProductProductCategoryViewModel>();
+            CreateMap<ProductProductCategory, ProductCategoriesViewModel>();
             CreateMap<Sys_Status, StatusViewModel>();
+            CreateMap<ApplicationUser, UserViewModel>();
         }
     }
 }

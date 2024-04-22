@@ -27,19 +27,9 @@ namespace ShopEva.Services.Services
             return _productDetailRepository.Add(productDetail);            
         }
 
-        public ProductDetail Delete(int id)
+        public async Task<ProductDetail> GetByProductIDAsync(Guid id)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<IEnumerable<ProductDetail>> GetAllAsync()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ProductDetail> GetByIDAsync()
-        {
-            throw new NotImplementedException();
+            return await _productDetailRepository.GetByProductID(id);
         }
 
         public void SaveChanged()

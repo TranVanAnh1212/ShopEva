@@ -57,6 +57,18 @@
     {
       "library": "elfinder@2.1.65",
       "destination": "wwwroot/lib/elfinder/"
+    },
+    {
+      "library": "angular-cookies@1.8.3",
+      "destination": "wwwroot/lib/angular-cookies/"
+    },
+    {
+      "library": "angular-translate@2.19.1",
+      "destination": "wwwroot/lib/angular-translate/"
+    },
+    {
+      "library": "angular-resource@1.8.3",
+      "destination": "wwwroot/lib/angular-resource/"
     }
   ]
 }

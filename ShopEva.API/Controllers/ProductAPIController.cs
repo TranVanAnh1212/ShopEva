@@ -5,10 +5,13 @@ using ShopEva.Data.ViewModels;
 using ShopEva.Models.Model;
 using ShopEva.Services.IServices;
 using ShopEva.Services.RequestMessage;
-using ShopEva.Services.Services;
 using ShopEva.Services.Extention;
 using AutoMapper;
 using ShopExample.Web.Infrastructure.Core;
+using Microsoft.AspNetCore.Identity;
+using ShopEva.Data.IRepositories;
+using ShopEva.Data.Repositories;
+using ShopEva.Services.Services;
 
 namespace ShopEva.API.Controllers
 {
@@ -17,22 +20,28 @@ namespace ShopEva.API.Controllers
     public class ProductAPIController : ControllerBase
     {
         private readonly IProductService _productService;
+        private readonly IUserService _userService;
         private readonly IProductDetailService _productDetailService;
-        private readonly IProductProductCategoryService _product2CategoryService;
+        private readonly IProductCategoriesService _productCategoryService;
         private readonly IMapper _mapper;
         private readonly ILogger<Product> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public ProductAPIController(IProductService productService,
+                                    IUserService userService,
                                     IProductDetailService productDetailService,
-                                    IProductProductCategoryService product2CategoryService,
+                                    IProductCategoriesService productCategoryService,
                                     IMapper mapper,
+                                    UserManager<ApplicationUser> userManager,
                                     ILogger<Product> logger)
         {
             _productService = productService;
+            _userService = userService;
             _productDetailService = productDetailService;
-            _product2CategoryService = product2CategoryService;
+            _productCategoryService = productCategoryService;
             _mapper = mapper;
             _logger = logger;
+            _userManager = userManager;
         }
 
         [HttpGet("get_all")]
@@ -41,11 +50,8 @@ namespace ShopEva.API.Controllers
             try
             {
                 int page_size = 20;
-
                 var product_list = await _productService.GetAllAsync(status, keyword, order_by, order_type);
-
                 var res = _mapper.Map<List<ProductViewModel>>(product_list);
-
                 var res_paginated = PaginatedList<ProductViewModel>.Create(res, page, page_size);
 
                 var product_list_page = new PaginationSet<ProductViewModel>()
@@ -65,7 +71,6 @@ namespace ShopEva.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-
                 return BadRequest(new RequestMessage()
                 {
                     Success = false,
@@ -78,23 +83,34 @@ namespace ShopEva.API.Controllers
             }
         }
 
-        [HttpGet("get_by_id/{id}")]
+        [HttpGet("get_by_id")]
         public async Task<IActionResult> Get(Guid id)
         {
             try
             {
-                var result = _productService.GetById(id);
+                var product = _productService.GetById(id);
+                var product_mapper = _mapper.Map<ProductViewModel>(product);
+
+                var product_categories = await _productCategoryService.GetByProductIDAsync(product.ID);
+                var product_categories_mapper = _mapper.Map<List<ProductCategoriesViewModel>>(product_categories);
+
+                var product_detail = await _productDetailService.GetByProductIDAsync(product.ID);
+                var product_detail_mapper = _mapper.Map<ProductDetailViewModel>(product_detail);
 
                 return Ok(new RequestMessage()
                 {
                     Success = true,
-                    Result = result
+                    Result = new
+                    {
+                        product = product_mapper,
+                        product_categories = product_categories_mapper,
+                        product_detail = product_detail_mapper
+                    }
                 });
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-
                 return BadRequest(new RequestMessage()
                 {
                     Success = false,
@@ -108,15 +124,17 @@ namespace ShopEva.API.Controllers
         }
 
         [HttpPost("create_new")]
-        public IActionResult Post(Dataset_Product data)
+        public async Task<IActionResult> PostAsync(Dataset_Product data)
         {
             try
             {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
                 var product = new Product();
                 product.ProductMap(data.ProductViewModel);
                 product.ID = Guid.NewGuid();
                 product.CreatedDate = DateTime.UtcNow;
-                product.CreatedBy = HttpContext.User.Identity.Name;
+                product.CreatedBy = Guid.Parse(user.Id);
 
                 var res = _productService.Add(product);
                 _productService.SaveChanged();
@@ -129,14 +147,14 @@ namespace ShopEva.API.Controllers
                     product2Category.ProductProductCategoryMap(item);
                     product2Category.ProductID = res.ID;
 
-                    var res_2 = _product2CategoryService.Create(product2Category);
-                    _product2CategoryService.SaveChanged();
+                    var res_2 = _productCategoryService.Create(product2Category);
+                    _productCategoryService.SaveChanged();
 
                     prod2Categ_List.Add(res_2);
                 }
 
                 var product_map = _mapper.Map<ProductViewModel>(res);
-                var product2Category_map = _mapper.Map<List<ProductProductCategoryViewModel>>(prod2Categ_List);
+                var product2Category_map = _mapper.Map<List<ProductCategoriesViewModel>>(prod2Categ_List);
 
                 return Ok(new RequestMessage
                 {
@@ -152,7 +170,6 @@ namespace ShopEva.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-
                 return BadRequest(new RequestMessage()
                 {
                     Success = false,
@@ -166,14 +183,16 @@ namespace ShopEva.API.Controllers
         }
 
         [HttpPut("update")]
-        public IActionResult Put(ProductViewModel vm)
+        public async Task<IActionResult> PutAsync(ProductViewModel vm)
         {
             try
             {
+                var user = await _userManager.FindByNameAsync(User.Identity.Name);
+
                 var product = new Product();
                 product.ProductMap(vm);
                 product.ModifiedDate = DateTime.UtcNow;
-                product.ModifiedBy = HttpContext.User.Identity.Name;
+                product.ModifiedBy = Guid.Parse(user.Id);
 
                 _productService.Update(product);
                 _productService.SaveChanged();
@@ -186,7 +205,6 @@ namespace ShopEva.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-
                 return BadRequest(new RequestMessage()
                 {
                     Success = false,
@@ -222,7 +240,6 @@ namespace ShopEva.API.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.Message);
-
                 return BadRequest(new RequestMessage()
                 {
                     Success = false,

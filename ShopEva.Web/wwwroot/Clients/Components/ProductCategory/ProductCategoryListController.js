@@ -234,7 +234,6 @@
             }
 
             CRUDService.get('/api/ProductCategoryAPI/getall', config, (result) => {
-                console.log(result.data);
                 var value = result.data;
 
                 if (value.result.totalCount <= 0) {
@@ -246,6 +245,8 @@
                     vm.page = value.result.page;
                     vm.totalCount = value.result.totalCount;
                     vm.pagesCount = value.result.totalPage;
+
+                    console.log(value);
                 }
             }, (err) => {
                 NotifyService.Shows('error', err);

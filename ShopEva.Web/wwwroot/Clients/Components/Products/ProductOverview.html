@@ -1,6 +1,6 @@
 ﻿
 
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-2 static-top shadow">
     <ul class="navbar-nav">
         <li class="nav-item">
             <h3>Product detail</h3>
@@ -216,7 +216,7 @@
                                     required
                                     name="status"
                                     class="form-control">
-                                <option value="">--- Choose one status ---</option>
+                                <option value="">{{item.id}} - {{item.name}}</option>
                             </select>
 
                             <div ng-messages="frmAddProduct.status.$error" class="text-danger" ng-if="submitted">
@@ -331,26 +331,18 @@
                                name="material"
                                ng-disabled="!EditMode && Saved"
                                ng-model="ProductDetail.material"
-                               class="form-control"/>
+                               class="form-control" />
                     </div>
 
                     <div class="col-sm-6 pb-3">
                         <label class="col-sm-12 col-form-label px-0">Other info</label>
                         <textarea type="text"
-                               name="otherInfo"
-                               ng-disabled="!EditMode && Saved"
-                               ng-model="ProductDetail.otherInfo"
-                               class="form-control"></textarea>
+                                  name="otherInfo"
+                                  ng-disabled="!EditMode && Saved"
+                                  ng-model="ProductDetail.otherInfo"
+                                  class="form-control"></textarea>
                     </div>
-                </div>
-            </div>
-        </form>
-    </div>
 
-    <div id="tab_analyze" class="tabcontent">
-        <form class="form-horizontal" novalidate name="frmAnalyzeProduct" role="form">
-            <div class="card-body">
-                <div class="form-group row">
                     <div class="col-sm-6 pb-3">
                         <label class="col-sm-12 col-form-label px-0">Created date</label>
                         <input type="datetime"
@@ -387,7 +379,7 @@
                     <div class="col-sm-6 pb-3">
                         <label class="col-sm-12 col-form-label px-0">View count</label>
                         <input type="number" disabled
-                               name="viewCount" 
+                               name="viewCount"
                                ng-model="Product.viewCount"
                                class="form-control">
                     </div>
@@ -406,6 +398,18 @@
                                name="reviewCount"
                                ng-model="Product.reviewCount"
                                class="form-control">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div id="tab_analyze" class="tabcontent">
+        <form class="form-horizontal" novalidate name="frmAnalyzeProduct" role="form">
+            <div class="card-body">
+                <div class="form-group row">
+                    <div class="col-sm-12 pb-3">
+                        <h3 class="text-center">Không có dữ liệu</h3>
                     </div>
                 </div>
             </div>

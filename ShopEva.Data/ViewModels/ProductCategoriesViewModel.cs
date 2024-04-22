@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace ShopEva.Data.ViewModels
 {
-    public class ProductProductCategoryViewModel
+    public class ProductCategoriesViewModel
     {
         public Guid ProductID { get; set; }
         public Guid CategoryID { get; set; }

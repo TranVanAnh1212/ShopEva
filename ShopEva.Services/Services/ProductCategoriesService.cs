@@ -11,12 +11,12 @@ using System.Threading.Tasks;
 
 namespace ShopEva.Services.Services
 {
-    public class ProductProductCategoryService : IProductProductCategoryService
+    public class ProductCategoriesService : IProductCategoriesService
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IProductProductCategoryRepository _productProductCategoryRepository;
+        private readonly IProductCategoriesRepository _productProductCategoryRepository;
 
-        public ProductProductCategoryService(IUnitOfWork unitOfWork, IProductProductCategoryRepository productProductCategoryRepository)
+        public ProductCategoriesService(IUnitOfWork unitOfWork, IProductCategoriesRepository productProductCategoryRepository)
         {
             _unitOfWork = unitOfWork;
             _productProductCategoryRepository = productProductCategoryRepository;

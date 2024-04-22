@@ -39,6 +39,7 @@ namespace ShopEva.Data.Infrastructure
         /// <param name="id"></param>
         /// <returns></returns>
         T GetSingleById(Guid id);
+        Task<T> GetSingleByIdAsync(Guid id);
         IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes);
         Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> where, string includes = null);
         T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null);

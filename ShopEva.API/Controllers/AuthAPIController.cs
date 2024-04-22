@@ -35,7 +35,6 @@ namespace ShopEva.API.Controllers
 
 
         [HttpPost("Register")]
-        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Register(RegisterUserViewModel user)
         {
             try

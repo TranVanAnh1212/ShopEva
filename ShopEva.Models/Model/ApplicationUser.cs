@@ -15,6 +15,7 @@ namespace ShopEva.Models.Model
         [MaxLength(256)]
         public string? Fullname { get; set; }
         public string? Avatar { get; set; }
+        public DateTime LatestLogin { get; set; }
 
         //public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         //{

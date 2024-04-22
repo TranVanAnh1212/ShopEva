@@ -15,12 +15,8 @@
         vm.login = function () {
             vm.loading = true;
 
-            console.log('Đang đăng nhập ...');
-
             loginService.login(vm.loginData.user_name, vm.loginData.password)
                 .then((res) => {
-                    console.log(res);
-
                     if (res != null) {
                         NotifyService.Shows('error', 'Login failure ... ');
                     }

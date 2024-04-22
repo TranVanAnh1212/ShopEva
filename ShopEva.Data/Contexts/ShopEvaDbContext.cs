@@ -58,6 +58,29 @@ namespace ShopEva.Data.Contexts
             });
 
             modelBuilder.HasDefaultSchema("public");
+
+            //modelBuilder.Entity<Sys_Status>().HasData(
+            //    new Sys_Status { ID = 0, Name = "Nháp", CreatedDate = DateTime.UtcNow, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78") },
+            //    new Sys_Status { ID = 1, Name = "Sử dụng", CreatedDate = DateTime.UtcNow, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78") },
+            //    new Sys_Status { ID = 2, Name = "Không sử dụng", CreatedDate = DateTime.UtcNow, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78") },
+            //    new Sys_Status { ID = 15, Name = "Chờ duyệt", CreatedDate = DateTime.UtcNow, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78") }
+            //    );
+
+            //modelBuilder.Entity<Brand>().HasData(
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Canifa", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Loire", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Cocosin", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Gumac", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Bom sister", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Ivy moda", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Just bra", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Sunfly", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Jody", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Vingo", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "Elise", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 },
+            //        new Brand() { ID = Guid.NewGuid(), Name = "EVA DE EVA", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.UtcNow, Status = 1 }
+            //    );
+
             base.OnModelCreating(modelBuilder);
 
             // Bỏ tiền tố AspNet của các bảng: mặc định các bảng trong IdentityDbContext có
@@ -71,6 +94,7 @@ namespace ShopEva.Data.Contexts
                     entityType.SetTableName(tableName.Substring(6));
                 }
             }
+
         }
 
     }

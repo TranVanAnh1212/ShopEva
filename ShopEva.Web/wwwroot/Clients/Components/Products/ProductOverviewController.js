@@ -11,6 +11,7 @@
             vm.EditMode = false;
             vm.AddAction = true;
             vm.Product = {};
+            vm.ProductDetail = {};
             vm.StatusList = [];
             vm.Product_Status;
             vm.submitted = false;
@@ -19,6 +20,16 @@
             vm.GetSEOTitle = GetSEOTitle;
             vm.SaveAdd = SaveAdd;
             vm.Edit = Edit;
+
+
+            (function Init() {
+                if (vm.ProductID) {
+                    GetByID(vm.ProductID);
+                    vm.AddAction = false;
+                    vm.EditMode = false;
+                    vm.Saved = true;
+                }
+            })();
 
             function Edit() {
 
@@ -47,6 +58,8 @@
                 }
 
                 CRUDService.post('/api/ProductAPI/create_new', data, (res) => {
+                    console.log(res.data);
+
                     var value = res.data;
 
                     vm.Product = value.result.productViewModel;
@@ -55,21 +68,14 @@
                     vm.Saved = true;
                     vm.EditMode = false;
                     vm.AddAction = false;
+
+                    NotifyService.Shows('success', 'Create new product successfully ... ');
                 }, (err) => {
                     console.error(err);
                     NotifyService.Shows('error', 'Cannot save product ...');
                 });
 
             }
-
-            (function Init() {
-                if (vm.ProductID) {
-                    GetByID(vm.ProductID);
-                    vm.AddAction = false;
-                    vm.EditMode = false;
-                    vm.Saved = true;
-                }
-            })();
 
             function GetByID(id) {
                 var config = {
@@ -82,8 +88,10 @@
                     console.log(result);
                     var value = result.data;
 
-                    vm.Product = value.result;
-                    vm.ProductID = value.result.id;
+                    vm.Product = value.result.product;
+                    vm.Category = value.result.product_categories;
+                    vm.ProductDetail = value.result.product_detail;
+                    vm.ProductID = value.result.product.id;
 
                 }, (error) => {
                     NotifyService.Shows('error', 'Cannot get produc ...');
@@ -92,6 +100,7 @@
 
             function GetCategory() {
                 CRUDService.get('/api/ProductCategoryAPI/get_parent', null, (result) => {
+                    //console.log(result);
                     vm.CategoryList = result.data.result;
                 }, (err) => {
                     NotifyService.Shows('error', 'Cannot get data, an error occurred!');

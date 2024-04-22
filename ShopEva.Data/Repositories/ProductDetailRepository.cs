@@ -1,4 +1,5 @@
-﻿using ShopEva.Data.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using ShopEva.Data.Infrastructure;
 using ShopEva.Data.IRepositories;
 using ShopEva.Data.ViewModels;
 using ShopEva.Models.Model;
@@ -15,6 +16,11 @@ namespace ShopEva.Data.Repositories
         public ProductDetailRepository(IDbFactory dbFactory) : base(dbFactory)
         {
             
+        }
+
+        public async Task<ProductDetail> GetByProductID(Guid id)
+        {
+            return await this.DbContext.ProductsDetail.SingleOrDefaultAsync(x => x.ProductID == id);
         }
     }
 }

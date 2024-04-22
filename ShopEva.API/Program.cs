@@ -45,6 +45,30 @@ namespace ShopEva.API
                     Title = "ShopEvaApi",
                     Description = "Đây là ShopEvaApi",
                 });
+                option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Description = "Please enter a valid token",
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "Bearer"
+                });
+                option.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type=ReferenceType.SecurityScheme,
+                                Id="Bearer"
+                            }
+                        },
+                        new string[]{}
+                    }
+                });
+
             });
 
             builder.Services.AddDbContext<ShopEvaDbContext>(option =>
@@ -83,7 +107,7 @@ namespace ShopEva.API
 
             builder.Services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(60);
+                options.IdleTimeout = TimeSpan.FromMinutes(1);
             });
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -110,9 +134,11 @@ namespace ShopEva.API
             builder.Services.AddScoped<IProductService, ProductService>();
             builder.Services.AddScoped<IProductDetailRepository, ProductDetailRepository>();
             builder.Services.AddScoped<IProductDetailService, ProductDetailService>();
-            builder.Services.AddScoped<IProductProductCategoryRepository, ProductProductCategoryRepository>();
-            builder.Services.AddScoped<IProductProductCategoryService, ProductProductCategoryService>();
+            builder.Services.AddScoped<IProductCategoriesRepository, ProductCategoriesRepository>();
+            builder.Services.AddScoped<IProductCategoriesService, ProductCategoriesService>();
             builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+            builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<IUserService, UserService>();
             #endregion
 
             builder.Services.AddAuthentication(options =>

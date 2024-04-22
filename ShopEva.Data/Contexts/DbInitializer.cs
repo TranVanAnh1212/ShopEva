@@ -23,18 +23,18 @@ namespace ShopEva.Data.Contexts
             {
                 List<Brand> brands = new List<Brand>
                 {
-                    new Brand() { ID = Guid.NewGuid(), Name = "Canifa", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Loire", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Cocosin", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Gumac", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Bom sister", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Ivy moda", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Just bra", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Sunfly", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Jody", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Vingo", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "Elise", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
-                    new Brand() { ID = Guid.NewGuid(), Name = "EVA DE EVA", CreatedBy = "TranVanAnh", CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Canifa", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Loire", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Cocosin", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Gumac", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Bom sister", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Ivy moda", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Just bra", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Sunfly", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Jody", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Vingo", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "Elise", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
+                    //new Brand() { ID = Guid.NewGuid(), Name = "EVA DE EVA", CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, Status = 1 },
                 };
             }
         }
@@ -86,7 +86,8 @@ namespace ShopEva.Data.Contexts
                         Price=35990000,
                         Quantity=165,
                         CreatedDate=DateTime.Now,
-                        CreatedBy="TranVanAnh - Admin", },
+                        //CreatedBy=Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), 
+                    },
                     new Product() {
                         ID = Guid.NewGuid(),
                         Name="Samsung galaxy",
@@ -94,7 +95,8 @@ namespace ShopEva.Data.Contexts
                         Price=2990000,
                         Quantity=15,
                         CreatedDate=DateTime.Now,
-                        CreatedBy="TranVanAnh - Admin", },
+                        //CreatedBy=Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), 
+                    },
                     new Product() {
                         ID = Guid.NewGuid(),
                         Name="TV OSny",
@@ -102,7 +104,8 @@ namespace ShopEva.Data.Contexts
                         Price=12990000,
                         Quantity=165,
                         CreatedDate=DateTime.Now,
-                        CreatedBy="TranVanAnh - Admin", },
+                        //CreatedBy=Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), 
+                    },
                 };
                 context.Products.AddRange(listProd);
                 context.SaveChanges();
@@ -116,16 +119,16 @@ namespace ShopEva.Data.Contexts
             {
                 List<Sys_Status> sys_Statuses = new List<Sys_Status>()
                 {
-                    new Sys_Status { ID = 1, Name = "Sử dụng", Status_Of = 1, CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
-                    new Sys_Status { ID = 2, Name = "Không sử dụng", Status_Of = 1,  CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
-                    new Sys_Status { ID = 3, Name = "Chờ duyệt", Status_Of = 1, CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
-                    new Sys_Status { ID = 0, Name = "Nháp", Status_Of = 1,  CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 1, Name = "Sử dụng", Status_Of = 1, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 2, Name = "Không sử dụng", Status_Of = 1,  CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 3, Name = "Chờ duyệt", Status_Of = 1, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 0, Name = "Nháp", Status_Of = 1,  CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
 
-                    new Sys_Status { ID = 11, Name = "Chưa giao", Status_Of = 2, CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
-                    new Sys_Status { ID = 12, Name = "Đang giao", Status_Of = 2,  CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
-                    new Sys_Status { ID = 13, Name = "Đã giao", Status_Of = 2, CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
-                    new Sys_Status { ID = 10, Name = "Hủy đơn", Status_Of = 2,  CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
-                    new Sys_Status { ID = 14, Name = "Chờ xác nhận", Status_Of = 2,  CreatedBy = "Admin", CreatedDate = DateTime.Now, ModifiedBy = "Admin", ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 11, Name = "Chưa giao", Status_Of = 2, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 12, Name = "Đang giao", Status_Of = 2,  CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 13, Name = "Đã giao", Status_Of = 2, CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 10, Name = "Hủy đơn", Status_Of = 2,  CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
+                    //new Sys_Status { ID = 14, Name = "Chờ xác nhận", Status_Of = 2,  CreatedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), CreatedDate = DateTime.Now, ModifiedBy = Guid.Parse("8e1dce0d-5997-4834-b8ac-cbd4614e2b78"), ModifiedDate = DateTime.Now, Status = 1 },
                 };
 
                 context.Sys_Statuses.AddRange(sys_Statuses);

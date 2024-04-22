@@ -10,5 +10,6 @@ namespace ShopEva.Data.IRepositories
 {
     public interface IProductDetailRepository : IRepository<ProductDetail>
     {
+        Task<ProductDetail> GetByProductID(Guid id);
     }
 }

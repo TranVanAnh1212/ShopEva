@@ -72,6 +72,11 @@ namespace ShopEva.Data.Infrastructure
             return dbSet.Find(id);
         }
 
+        public virtual async Task<T> GetSingleByIdAsync(Guid id)
+        {
+            return await dbSet.FindAsync(id);
+        }
+
         public virtual IEnumerable<T> GetMany(Expression<Func<T, bool>> where, string includes)
         {
             return dbSet.Where(where).ToList();
@@ -94,6 +99,20 @@ namespace ShopEva.Data.Infrastructure
             }
 
             return dataContext.Set<T>().AsQueryable();
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(string[] includes = null)
+        {
+            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
+            if (includes != null && includes.Count() > 0)
+            {
+                var query = dataContext.Set<T>().Include(includes.First());
+                foreach (var include in includes.Skip(1))
+                    query = query.Include(include);
+                return await query.ToListAsync();
+            }
+
+            return await dataContext.Set<T>().ToArrayAsync();
         }
 
         public T GetSingleByCondition(Expression<Func<T, bool>> expression, string[] includes = null)
@@ -149,20 +168,6 @@ namespace ShopEva.Data.Infrastructure
         public bool CheckContains(Expression<Func<T, bool>> predicate)
         {
             return dataContext.Set<T>().Count<T>(predicate) > 0;
-        }
-
-        public async Task<IEnumerable<T>> GetAllAsync(string[] includes = null)
-        {
-            //HANDLE INCLUDES FOR ASSOCIATED OBJECTS IF APPLICABLE
-            if (includes != null && includes.Count() > 0)
-            {
-                var query = dataContext.Set<T>().Include(includes.First());
-                foreach (var include in includes.Skip(1))
-                    query = query.Include(include);
-                return await query.ToListAsync();
-            }
-
-            return await dataContext.Set<T>().ToArrayAsync();
         }
 
         public async Task<IEnumerable<T>> GetManyAsync(Expression<Func<T, bool>> where, string includes = null)
