@@ -4,13 +4,10 @@
     app.controller('ProductCategoryListController', ProductCategoryListController);
 
     ProductCategoryListController.$inject = ['$scope', 'CRUDService', 'NotifyService',
-        '$filter', '$ngBootbox', '$location', 'localStorageService', '$timeout'];
-
+        '$filter', '$ngBootbox', '$location', 'localStorageService', '$timeout', 'ExcelService'];
     function ProductCategoryListController($scope, CRUDService, NotifyService, $filter,
-        $ngBootbox, $location, localStorageService, $timeout) {
+        $ngBootbox, $location, localStorageService, $timeout, ExcelService) {
         var vm = $scope;
-
-        // variable
         vm.product_category_list = [];
         vm.product_category_original = [];
         vm.product_category_list_checked;
@@ -19,7 +16,6 @@
         vm.pagesCount = 0;
         vm.page = 1;
         vm.keyword = '';
-        vm.order_by;
         vm.status = {
             id: -1,
             name: 'Tất cả'
@@ -42,34 +38,30 @@
         vm.ExportExcel = ExportExcel;
         vm.TblInternalSearch = TblInternalSearch;
 
-        function TblInternalSearch(col_name) {
+        function TblInternalSearch(keyword, col_name) {
             switch (col_name) {
                 case 'name':
                     setTimeout(function () {
                         var searched_list = [];
 
-                        if (vm.search_value.name) {
-                            angular.forEach(vm.product_category_list, (item) => {
-                                if (item.name.includes(vm.search_value.name)) {
-                                    searched_list.push(item);
-                                }
-                            });
-
-                            vm.product_category_list = searched_list;
+                        if (keyword) {
+                            GetProductCategoryList(vm.page, vm.status.id, 'name', keyword);
                         }
                         else {
-                            vm.product_category_list = angular.copy(vm.product_category_original);
+                            GetProductCategoryList(vm.page, vm.status.id, 'name', '');
                         }
-                    }, 300);
-                    
+                    }, 200);
+
                     break;
             }
         }
 
-        function ExportExcel() {
-            NotifyService.Shows('info', 'Comming soon ....');
+        // Hàm export
+        function ExportExcel() {            
+            ExcelService.exportToExcel(vm.product_category_list, "ProductCategory_Export");
         }
 
+        // Hàm double click to choose a record
         function Dlb_Select(id) {
             $location.path('/product_category_overview/' + id);
         }
@@ -103,7 +95,7 @@
                 });
             })
 
-            GetProductCategoryList(vm.page, vm.status.id);
+            GetProductCategoryList(vm.page, vm.status.id, 'name', '');
         }
 
         function UpdateProductCategory() {
@@ -122,7 +114,7 @@
 
         function ChangeSorted(type) {
             vm.order_type = vm.order_type == 'DESC' ? 'ASC' : 'DESC';
-            GetProductCategoryList(vm.page, vm.status.id);
+            GetProductCategoryList(vm.page, vm.status.id, type, '');
         }
 
         function DeleteMultiple() {
@@ -153,7 +145,7 @@
                     CRUDService.del('/api/ProductCategoryAPI/delete', config, (result) => {
                         NotifyService.Shows('success', 'Deleted ' + result.data.result + ' record!');
                         vm.product_category_list_checked = [];
-                        GetProductCategoryList(vm.page, vm.status.id);
+                        GetProductCategoryList(vm.page, vm.status.id, 'name', '');
                     }, (err) => {
                         NotifyService.Shows('error', "Có lỗi xảy ra");
                     });
@@ -169,13 +161,13 @@
         function ChangeCombobox(type, item) {
             switch (type) {
                 case 'status':
-                    GetProductCategoryList(vm.page, item.id);
+                    GetProductCategoryList(vm.page, item.id, 'name', '');
                     break;
             }
         }
 
         function Reload() {
-            GetProductCategoryList(vm.page, vm.status.id);
+            GetProductCategoryList(vm.page, vm.status.id, 'name', '');
             vm.is_selected_all = false;
         }
 
@@ -220,13 +212,13 @@
             })
         }
 
-        function GetProductCategoryList(page, status) {
+        function GetProductCategoryList(page, status, order, keyword) {
             page = page || 1;
 
             var config = {
                 params: {
-                    keyword: vm.keyword,
-                    order_by: vm.order_by,
+                    keyword: keyword,
+                    order_by: order,
                     status: status,
                     order_type: vm.order_type,
                     page: page,
@@ -237,7 +229,8 @@
                 var value = result.data;
 
                 if (value.result.totalCount <= 0) {
-                    NotifyService.Shows('info', 'Product category empty ...');
+                    //NotifyService.Shows('info', 'Product category empty ...');
+                    NotifyService.Success('Product category empty ...');
                 }
                 else {
                     vm.product_category_original = value.result.data;
@@ -245,15 +238,14 @@
                     vm.page = value.result.page;
                     vm.totalCount = value.result.totalCount;
                     vm.pagesCount = value.result.totalPage;
-
-                    console.log(value);
                 }
             }, (err) => {
-                NotifyService.Shows('error', err);
+                //NotifyService.Shows('error', err);
+                NotifyService.Success('Error ...');
             })
         }
 
-        GetProductCategoryList(vm.page, -1);
+        GetProductCategoryList(vm.page, -1, 'name', '');
         GetStatus();
     }
 

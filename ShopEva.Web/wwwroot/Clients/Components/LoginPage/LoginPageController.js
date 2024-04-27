@@ -17,7 +17,7 @@
 
             loginService.login(vm.loginData.user_name, vm.loginData.password)
                 .then((res) => {
-                    if (res != null) {
+                    if (res) {
                         NotifyService.Shows('error', 'Login failure ... ');
                     }
                     else { 

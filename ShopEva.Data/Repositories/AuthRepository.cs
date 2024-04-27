@@ -48,24 +48,12 @@ namespace ShopEva.Data.Repositories
         public async Task<RequestMessage> LoginAsync(LoginUserViewModel userVM)
         {
             var user = await _userManager.FindByNameAsync(userVM.UserName);
-            var pass = await _userManager.CheckPasswordAsync(user, userVM.Password);
-            var lockout = await _userManager.IsLockedOutAsync(user);
-            var email = _userManager.IsEmailConfirmedAsync(user);
-            var phone = _userManager.IsPhoneNumberConfirmedAsync(user);
+            string error_msg = "";
 
-            if (user == null || !pass)
+            if (user == null)
             {
-                string error_msg = "";
-
                 if (user == null)
                     error_msg = "User not found!";
-
-                if (!pass)
-                    error_msg = "Password is incorrect!";
-
-                //if (!lockout)
-                //    error_msg = "Account is locked!";
-
 
                 return new RequestMessage
                 {
@@ -76,7 +64,20 @@ namespace ShopEva.Data.Repositories
                         Message = error_msg
                     }
                 };
-            }
+            }            
+
+            var pass = await _userManager.CheckPasswordAsync(user, userVM.Password);
+            var lockout = await _userManager.IsLockedOutAsync(user);
+            var email = _userManager.IsEmailConfirmedAsync(user);
+            var phone = _userManager.IsPhoneNumberConfirmedAsync(user);
+
+
+            if (!pass)
+                error_msg = "Password is incorrect!";
+
+            //if (!lockout)
+            //    error_msg = "Account is locked!";
+
 
             var res = await _signInManager.PasswordSignInAsync(userVM.UserName, userVM.Password, isPersistent: userVM.RememberMe, lockoutOnFailure: false);
 

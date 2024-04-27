@@ -134,7 +134,6 @@
                 });
         }
 
-
         function Edit() {
             vm.EditMode = true;
             vm.AddAction = false;
@@ -160,7 +159,10 @@
                 localStorage.removeItem('ls.ProductCategory');
                 $state.go('product_category');
             }
-            else $state.go('product_category');
+            else {
+                localStorage.removeItem('ls.ProductCategory');
+                $state.go('product_category');
+            }
         }
 
         function GetStatus() {

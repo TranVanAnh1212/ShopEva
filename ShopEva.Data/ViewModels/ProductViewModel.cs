@@ -30,7 +30,11 @@ namespace ShopEva.Data.ViewModels
         public string? Tags { get; set; }
         public DateTime? CreatedDate { get; set; }
         public Guid? CreatedBy { get; set; }
+        [NotMapped()]
+        public string? Creator { get; set; }
         public DateTime? ModifiedDate { get; set; }
+        [NotMapped()]
+        public string? Modifior { get; set; }
         public Guid? ModifiedBy { get; set; }
         public string? MetaKeyWord { get; set; }
         public string? MetaDescription { get; set; }

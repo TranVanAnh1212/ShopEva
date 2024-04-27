@@ -31,7 +31,7 @@
 
                         deferred.resolve(null);
 
-                        NotifyService.Shows('success', 'Login successfully, you logged in with ADMIN permissions');
+                        //NotifyService.Shows('success', 'Login successfully, you logged in with ADMIN permissions');
 
                     }, function (error, status) {
                         authData.authenticationData.is_authenticated = false;

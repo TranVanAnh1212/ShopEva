@@ -27,7 +27,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Commons", "Commons", "{137E
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEva.Common", "ShopEva.Common\ShopEva.Common.csproj", "{E48A90A3-990A-4D47-97A7-F4F564212E8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopEva.API.MSTest", "ShopEva.API.MSTest\ShopEva.API.MSTest.csproj", "{459F197E-5F31-4033-8ED6-8C9CA1F1CE03}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShopEva.API.MSTest", "ShopEva.API.MSTest\ShopEva.API.MSTest.csproj", "{459F197E-5F31-4033-8ED6-8C9CA1F1CE03}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShopEva.Main", "ShopEva.Main\ShopEva.Main.csproj", "{3E1798F2-3072-4095-B860-6AE65CAEE8C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,6 +65,10 @@ Global
 		{459F197E-5F31-4033-8ED6-8C9CA1F1CE03}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{459F197E-5F31-4033-8ED6-8C9CA1F1CE03}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{459F197E-5F31-4033-8ED6-8C9CA1F1CE03}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E1798F2-3072-4095-B860-6AE65CAEE8C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1798F2-3072-4095-B860-6AE65CAEE8C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E1798F2-3072-4095-B860-6AE65CAEE8C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E1798F2-3072-4095-B860-6AE65CAEE8C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -69,6 +69,18 @@
     {
       "library": "angular-resource@1.8.3",
       "destination": "wwwroot/lib/angular-resource/"
+    },
+    {
+      "library": "exceljs@4.4.0",
+      "destination": "wwwroot/lib/exceljs/"
+    },
+    {
+      "library": "xlsx@0.18.5",
+      "destination": "wwwroot/lib/xlsx/"
+    },
+    {
+      "library": "angular-file-saver@1.1.3",
+      "destination": "wwwroot/lib/angular-file-saver/"
     }
   ]
 }

@@ -88,20 +88,17 @@ namespace ShopEva.Web
             }
 
             app.UseHttpsRedirection();
-
             app.UseStaticFiles();
-
             app.UseRouting();
             app.UseCookiePolicy();
             app.UseSession();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapAreaControllerRoute(
                 name: "admin_default",
                 areaName: "Admin",
-                pattern: "Admin/{controller=LoginPage_Admin}/{action=Index}/{id?}"
+                pattern: "Admin/{controller=AdminLogin}/{action=Index}/{id?}"
             );
 
             app.MapControllerRoute(

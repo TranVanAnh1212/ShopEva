@@ -104,21 +104,23 @@
                             <th class="text-center" width="5%">#</th>
                             <th>
                                 <div style="cursor: pointer;"
-                                     ng-click="ChangeSorted()"
+                                     ng-click="ChangeSorted('name')"
                                      class="w-100 d-flex justify-content-between text-center">
                                     <span class="w-100 d-block text-center">{{translation.Name}}</span>
                                     <span>
-                                        <i ng-show="order_type == 'ASC' ? true : false" class="fa-duotone fa-arrow-down-short-wide"></i>
-                                        <i ng-show="order_type == 'DESC ? true : false'" class="fa-solid fa-arrow-up-wide-short"></i>
+                                        <span ng-show="order_type != 'DESC'" >
+                                            <i class="fa-duotone fa-arrow-down-short-wide"></i>
+                                        </span>
+                                        <span ng-show="order_type != 'ASC'">
+                                            <i class="fa-solid fa-arrow-up-wide-short"></i>
+                                        </span>
                                     </span>
                                 </div>
-
                                 <hr />
-
-                                <div>
+                                <div> 
                                     <input class="form-control input-group-sm fs-5"
                                            ng-model="search_value.name"
-                                           ng-change="TblInternalSearch('name')" type="search" />
+                                           ng-change="TblInternalSearch(search_value.name, 'name')" type="search" />
                                 </div>
                             </th>
                             <th class="text-center" width="12%">

@@ -205,9 +205,72 @@
                                class="form-control"
                                id="inputGroupFile02">
                     </div>
-                   
+
                 </div>
             </div>
+
+            <hr class="sidebar-divider my-0">
+            <h3 class="mt-3">Chi tiết</h3>
+            <div class="form-group row">
+                <div class="col-sm-6 row">
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Created_Date}}
+                        </label>
+
+                        <input type="text"
+                               name="createdDate"
+                               disabled
+                               ng-model="ProductCategory.createdDate | date:'dd/MM/yyyy'"
+                               class="form-control"
+                               placeholder=" ...">
+
+                    </div>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Created_By}}
+                        </label>
+
+                        <input type="text"
+                               name="createdBy"
+                               disabled
+                               ng-model="ProductCategory.creatorName"
+                               class="form-control"
+                               placeholder=" ...">
+                    </div>
+
+                </div>
+
+                <div class="col-sm-6 row">
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Last_Modified_Date}}
+                        </label>
+
+                        <input type="text"
+                               name="modifiedDate"
+                               disabled
+                               ng-model="ProductCategory.modifiedDate | date:'dd/MM/yyyy'"
+                               class="form-control"
+                               placeholder=" ...">
+
+                    </div>
+                    <div class="col-sm-12 mt-3">
+                        <label class="col-sm-12 col-form-label px-0">
+                            {{translation.Last_Modified_By}}
+                        </label>
+
+                        <input type="text"
+                               name="modifiedBy"
+                               disabled
+                               ng-model="ProductCategory.modifiorName"
+                               class="form-control"
+                               placeholder=" ...">
+                    </div>
+
+                </div>
+            </div>
+
             <div class="form-group row text-danger p-3">
                 <h4>{{translation.ng_Important_Desc}}</h4>
             </div>

@@ -1,0 +1,65 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "angular.js@1.8.3",
+      "destination": "wwwroot/lib/angular.js/"
+    },
+    {
+      "library": "angular-cookie@4.1.0",
+      "destination": "wwwroot/lib/angular-cookie/",
+      "files": [
+        "angular-cookie.min.js"
+      ]
+    },
+    {
+      "library": "jquery@3.7.1",
+      "destination": "wwwroot/lib/jquery/"
+    },
+    {
+      "library": "bootstrap@5.3.3",
+      "destination": "wwwroot/lib/bootstrap/"
+    },
+    {
+      "library": "angular-ui-router@1.1.0",
+      "destination": "wwwroot/lib/angular-ui-router/"
+    },
+    {
+      "library": "angular-animate@1.8.3",
+      "destination": "wwwroot/lib/angular-animate/"
+    },
+    {
+      "library": "angular-loading-bar@0.9.0",
+      "destination": "wwwroot/lib/angular-loading-bar/"
+    },
+    {
+      "library": "angular-local-storage@0.7.1",
+      "destination": "wwwroot/lib/angular-local-storage/"
+    },
+    {
+      "library": "angular-sanitize@1.8.3",
+      "destination": "wwwroot/lib/angular-sanitize/"
+    },
+    {
+      "library": "angular-messages@1.8.3",
+      "destination": "wwwroot/lib/angular-messages/"
+    },
+    {
+      "library": "angular-translate@2.19.1",
+      "destination": "wwwroot/lib/angular-translate/"
+    },
+    {
+      "library": "Chart.js@4.4.1",
+      "destination": "wwwroot/lib/Chart.js/"
+    },
+    {
+      "library": "jquery-easing@1.4.1",
+      "destination": "wwwroot/lib/jquery-easing/"
+    },
+    {
+      "library": "bootstrap@4.6.2",
+      "destination": "wwwroot/lib/bootstrap/"
+    }
+  ]
+}

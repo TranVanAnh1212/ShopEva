@@ -24,7 +24,7 @@ namespace ShopEva.API.Controllers
         private readonly IProductDetailService _productDetailService;
         private readonly IProductCategoriesService _productCategoryService;
         private readonly IMapper _mapper;
-        private readonly ILogger<Product> _logger;
+        private readonly ILogger<ProductAPIController> _logger;
         private readonly UserManager<ApplicationUser> _userManager;
 
         public ProductAPIController(IProductService productService,
@@ -33,7 +33,7 @@ namespace ShopEva.API.Controllers
                                     IProductCategoriesService productCategoryService,
                                     IMapper mapper,
                                     UserManager<ApplicationUser> userManager,
-                                    ILogger<Product> logger)
+                                    ILogger<ProductAPIController> logger)
         {
             _productService = productService;
             _userService = userService;
@@ -45,13 +45,26 @@ namespace ShopEva.API.Controllers
         }
 
         [HttpGet("get_all")]
-        public async Task<IActionResult> Get(int status, string? keyword, string? order_by, string? order_type, int page = 1)
+        public async Task<IActionResult> Get(int status, string? keyword, string? order_by, string? order_type = "ASC", int page = 1)
         {
             try
             {
                 int page_size = 20;
                 var product_list = await _productService.GetAllAsync(status, keyword, order_by, order_type);
                 var res = _mapper.Map<List<ProductViewModel>>(product_list);
+
+                foreach (var item in res)
+                {
+                    var creator = await _userService.GetByID(item.CreatedBy.ToString());
+                    var modifior = await _userService.GetByID(item.ModifiedBy.ToString());
+
+                    if (modifior != null) 
+                        item.Modifior = modifior.UserName;
+
+                    if (creator != null)
+                        item.Creator = creator.UserName;
+                }
+
                 var res_paginated = PaginatedList<ProductViewModel>.Create(res, page, page_size);
 
                 var product_list_page = new PaginationSet<ProductViewModel>()
@@ -90,6 +103,14 @@ namespace ShopEva.API.Controllers
             {
                 var product = _productService.GetById(id);
                 var product_mapper = _mapper.Map<ProductViewModel>(product);
+                var creator = await _userService.GetByID(product_mapper.CreatedBy.ToString());
+                var modifior = await _userService.GetByID(product_mapper.ModifiedBy.ToString());
+
+                if (modifior != null)
+                    product_mapper.Modifior = modifior.UserName;
+
+                if (creator != null)
+                    product_mapper.Creator = creator.UserName;
 
                 var product_categories = await _productCategoryService.GetByProductIDAsync(product.ID);
                 var product_categories_mapper = _mapper.Map<List<ProductCategoriesViewModel>>(product_categories);

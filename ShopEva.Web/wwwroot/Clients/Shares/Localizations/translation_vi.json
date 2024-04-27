@@ -11,6 +11,8 @@
   "Name": "Tên",
   "Created_Date": "Ngày tạo",
   "Created_By": "Người tạo",
+  "Last_Modified_Date": "Ngày sửa đổi gần nhất",
+  "Last_Modified_By": "Người sửa đổi gần nhất",
   "Status": "Trạng thái",
   "Draff": "Nháp",
   "Using": "Sử dụng",
@@ -26,5 +28,5 @@
   "Show_On_Home": "Hiên thị lên trang chủ",
   "Parent": "Danh mục cha",
   "ng_Important_Desc": "Các mục có gắn dấu * là những mục bắt buộc",
-  "Product_Category_Detail":  "Chi tiết danh mục sản phẩm"
+  "Product_Category_Detail": "Chi tiết danh mục sản phẩm"
 }
