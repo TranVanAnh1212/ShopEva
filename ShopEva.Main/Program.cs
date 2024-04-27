@@ -16,7 +16,10 @@ namespace ShopEva.Main
 #if DEBUG
             mvcbuilder.AddRazorRuntimeCompilation();
 #endif
-            builder.Services.AddMvc();
+            builder.Services.AddMvc(options =>
+            {
+                //options.Filters.Add(new RedirectUnauthorizedResultFilter("/Admin/Login"));
+            });
             builder.Services.AddHttpClient();
             builder.Services.AddDbContext<ShopEvaDbContext>(options =>
                             options.UseNpgsql(builder.Configuration.GetConnectionString("YourConnectionString"))
