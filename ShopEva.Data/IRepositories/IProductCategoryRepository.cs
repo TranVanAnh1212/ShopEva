@@ -16,5 +16,6 @@ namespace ShopEva.Data.IRepositories
         /// <param name="id">category hiện tại</param>
         /// <returns></returns>
         Task<IEnumerable<ProductCategory>> GetParentAsync(Guid? id);
+        
     }
 }

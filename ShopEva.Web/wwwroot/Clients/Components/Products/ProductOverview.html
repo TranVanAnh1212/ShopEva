@@ -110,8 +110,7 @@
 
                         <div class="col-sm-12 pb-3">
                             <label class="col-sm-12 col-form-label px-0">Product category</label>
-
-                            <select select2 class="form-control col-md-12 col-xs-12"
+                            <!--<select select2 class="form-control col-md-12 col-xs-12"
                                     id="product_category_overview_add"
                                     name="product_category_overview_add"
                                     multiple
@@ -119,7 +118,10 @@
                                     ng-disabled="!EditMode && Saved"
                                     ng-options="option as option.name for option in CategoryList | orderBy: 'name'">
                                 <option value="">---- Choose parent category ----</option>
-                            </select>
+                            </select>-->
+
+                            <input data-toggle="modal" data-target="#productCategoryModal" value="{{SelectedCategory}}" 
+                                   type="button" class="form-control text-left col-md-12 col-xs-12" />
 
                         </div>
 
@@ -296,108 +298,143 @@
             <div class="card-body">
                 <div class="form-group row">
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Color</label>
-                        <input type="text"
-                               name="color"
-                               ng-disabled="!EditMode && Saved"
-                               ng-model="ProductDetail.color"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Color</label>
+                            <input type="text"
+                                   name="color"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="ProductDetail.color"
+                                   class="form-control">
+                        </div>
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Size</label>
-                        <input type="text"
-                               name="size"
-                               ng-disabled="!EditMode && Saved"
-                               ng-model="ProductDetail.size"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Size</label>
+                            <input type="text"
+                                   name="size"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="ProductDetail.size"
+                                   class="form-control">
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Brand</label>
-                        <select select2 class="form-control col-md-12 col-xs-12"
-                                id="brand"
-                                name="brand"
-                                multiple
-                                ng-model="Brand"
-                                ng-disabled="!EditMode && Saved"
-                                ng-options="option as option.name for option in Brands | orderBy: 'name'">
-                        </select>
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Brand</label>
+                            <select class="form-control col-md-12 col-xs-12"
+                                    id="brand"
+                                    name="brand"
+                                    ng-model="Brand"
+                                    ng-disabled="!EditMode && Saved"
+                                    ng-options="option as option.name for option in Brands">
+                                <option value="">---- Choose parent category ----</option>
+                            </select>
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Material</label>
-                        <input type="text"
-                               name="material"
-                               ng-disabled="!EditMode && Saved"
-                               ng-model="ProductDetail.material"
-                               class="form-control" />
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Material</label>
+                            <input type="text"
+                                   name="material"
+                                   ng-disabled="!EditMode && Saved"
+                                   ng-model="ProductDetail.material"
+                                   class="form-control" />
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Other info</label>
-                        <textarea type="text"
-                                  name="otherInfo"
-                                  ng-disabled="!EditMode && Saved"
-                                  ng-model="ProductDetail.otherInfo"
-                                  class="form-control"></textarea>
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Other info</label>
+                            <textarea type="text"
+                                      name="otherInfo"
+                                      ng-disabled="!EditMode && Saved"
+                                      ng-model="ProductDetail.otherInfo"
+                                      class="form-control"></textarea>
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Created date</label>
-                        <input type="datetime"
-                               disabled
-                               name="createdDate"
-                               ng-model="Product.createdDate"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">{{translation.Created_Date}}</label>
+                            <input type="datetime"
+                                   disabled
+                                   name="createdDate"
+                                   ng-model="Product.createdDate"
+                                   class="form-control">
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Created by</label>
-                        <input type="text" disabled
-                               name="createdBy"
-                               ng-model="Product.createdBy"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">{{translation.Created_By}}</label>
+                            <input type="text" disabled
+                                   name="createdBy"
+                                   ng-model="Product.creator"
+                                   class="form-control">
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Modified date</label>
-                        <input type="datetime" disabled
-                               name="modifiedDate"
-                               ng-model="Product.modifiedDate"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">{{translation.Last_Modified_Date}}</label>
+                            <input type="datetime" disabled
+                                   name="modifiedDate"
+                                   ng-model="Product.modifiedDate"
+                                   class="form-control">
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Modified by</label>
-                        <input type="text" disabled
-                               name="modifiedBy"
-                               ng-model="Product.modifiedBy"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">{{translation.Last_Modified_By}}</label>
+                            <input type="text" disabled
+                                   name="modifiedBy"
+                                   ng-model="Product.modifior"
+                                   class="form-control">
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">View count</label>
-                        <input type="number" disabled
-                               name="viewCount"
-                               ng-model="Product.viewCount"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">View count</label>
+                            <input type="number" disabled
+                                   name="viewCount"
+                                   ng-model="Product.viewCount"
+                                   class="form-control">
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Buy count</label>
-                        <input type="number" disabled
-                               name="buyCount"
-                               ng-model="Product.buyCount"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Buy count</label>
+                            <input type="number" disabled
+                                   name="buyCount"
+                                   ng-model="Product.buyCount"
+                                   class="form-control">
+                        </div>
+
                     </div>
 
                     <div class="col-sm-6 pb-3">
-                        <label class="col-sm-12 col-form-label px-0">Review count</label>
-                        <input type="number" disabled
-                               name="reviewCount"
-                               ng-model="Product.reviewCount"
-                               class="form-control">
+                        <div class="col-sm-12 pb-3">
+                            <label class="col-sm-12 col-form-label px-0">Review count</label>
+                            <input type="number" disabled
+                                   name="reviewCount"
+                                   ng-model="Product.reviewCount"
+                                   class="form-control">
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -417,20 +454,75 @@
     </div>
 </div>
 <!-- End Page Content -->
+<!-- productCategoryModal -->
+<div class="modal fade" id="productCategoryModal" tabindex="-1"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title fs-5" id="exampleModalLabel">
+                    {{translation.Menu_Product_Category}}
+                </h3>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-header">
+                        <input type="search" class="form-control" placeholder="Tìm kiếm" />
+                    </div>
 
+                    <div class="card-body">
+                        <div class="d-flex p-1">
+                            <div class="scoll-item">
+                                <ul class="list-group list-group-flush">
+                                    <li ng-click="GetChildrent(option, option.id, 1, this)" style="cursor: pointer;"
+                                        id="prodCate-root-{{option.id}}"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        ng-repeat="option in CategoryList">
+                                        {{option.name}}
+                                        <i class="fa-thin fa-angle-right"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="scoll-item">
+                                <ul class="list-group list-group-flush">
+                                    <li ng-click="GetChildrent(option, option.id, 2)" style="cursor: pointer;"
+                                        class="d-flex justify-content-between align-items-center list-group-item list-group-item-action"
+                                        ng-repeat="option in CategoryListChildrent1">
+                                        {{option.name}}
+                                        <i class="fa-thin fa-angle-right"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <div class="d-flex justify-content-start">
+                    <p class="m-0 mr-2">Đã chọn: </p>
+                    <b>{{CategoryShow}}</b>
+                </div>
+                <div>
+                    <button type="reset" class="btn btn-outline-secondary mr-2" data-dismiss="modal">Hủy</button>
+                    <button type="button" ng-click="ChoosecategorySubmit()" class="btn btn-primary">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(() => {
         var tabLink = $('.tablinks');
         var tabPane = $('.tabcontent');
-
         tabLink.each((index, ele) => {
             var tab = $(ele);
             var content = tabPane.eq(index);
-
             tab.on('click', () => {
                 $('.tablinks.active').removeClass('active');
                 $('.tabcontent.active').removeClass('active');
-
                 tab.addClass('active');
                 content.addClass('active');
             })

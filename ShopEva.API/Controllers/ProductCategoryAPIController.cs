@@ -37,12 +37,12 @@ namespace ShopEva.API.Controllers
 
         [HttpGet("getall")]
         [AllowAnonymous]
-        public async Task<IActionResult> Get(string? keyword, string? order_by, int status, int page = 1, string order_type = "ASC")
+        public async Task<IActionResult> Get(string? keyword, string? order_by, int status = -1, int page = 1, string order_type = "ASC", int index = -1)
         {
             try
             {
                 int page_size = 20;
-                var product_Category_List = await _productCategoryService.GetAllAsync(status, keyword, order_by, order_type);
+                var product_Category_List = await _productCategoryService.GetAllAsync(status, keyword, order_by, order_type, index);
 
                 var res = _mapper.Map<List<ProductCategoryViewModel>>(product_Category_List);
 
@@ -168,6 +168,37 @@ namespace ShopEva.API.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("get-all-by-parent-id")]
+        public async Task<IActionResult> Get(Guid id, int index)
+        {
+            try
+            {
+                var result = await _productCategoryService.GetAllByParentID(id, index);
+
+                var res = _mapper.Map<List<ProductCategoryViewModel>>(result);
+
+                return Ok(new RequestMessage
+                {
+                    Success = true,
+                    Result = res
+                });
+            }
+            catch (Exception ex)
+            {
+                logger.Error(ex);
+                return BadRequest(new RequestMessage
+                {
+                    Success = false,
+                    Error = new ErrorInfor
+                    {
+                        Code = 400,
+                        Message = ex.Message
+                    }
+                });
+            }
+        }
+
         [HttpPost("addnew")]
         public async Task<IActionResult> PostAsync(ProductCategoryViewModel viewModel)
         {
@@ -181,7 +212,7 @@ namespace ShopEva.API.Controllers
                 pc.CreatedDate = DateTime.UtcNow;
                 pc.CreatedBy = Guid.Parse(user.Id);
 
-                _productCategoryService.Add(pc);
+                await _productCategoryService.Add(pc);
                 _productCategoryService.SaveChanged();
 
                 var res = _mapper.Map<ProductCategoryViewModel>(pc);

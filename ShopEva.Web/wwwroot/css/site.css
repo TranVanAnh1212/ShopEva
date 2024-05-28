@@ -113,3 +113,18 @@ body {
 .tabcontent.active {
     display: block;
 }
+
+.modal-dialog {
+    /*max-height: 90vh;   
+    height: 100%;*/
+}
+
+.scoll-item {
+    height: 100%;
+    border-right: 1px solid #ccc;
+    overflow-y: auto;
+}
+
+.selected-item {
+    background-color: #4e73df;
+}

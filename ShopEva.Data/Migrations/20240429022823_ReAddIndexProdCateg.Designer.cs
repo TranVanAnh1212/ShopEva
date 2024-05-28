@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShopEva.Data.Contexts;
@@ -11,9 +12,11 @@ using ShopEva.Data.Contexts;
 namespace ShopEva.Data.Migrations
 {
     [DbContext(typeof(ShopEvaDbContext))]
-    partial class ShopEvaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240429022823_ReAddIndexProdCateg")]
+    partial class ReAddIndexProdCateg
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -813,9 +816,6 @@ namespace ShopEva.Data.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("character varying(500)");
 
-                    b.Property<int>("CategIndex")
-                        .HasColumnType("integer");
-
                     b.Property<Guid?>("CreatedBy")
                         .HasColumnType("uuid");
 
@@ -834,6 +834,9 @@ namespace ShopEva.Data.Migrations
 
                     b.Property<string>("Image")
                         .HasColumnType("text");
+
+                    b.Property<int>("Index")
+                        .HasColumnType("integer");
 
                     b.Property<string>("MetaDescription")
                         .HasMaxLength(256)

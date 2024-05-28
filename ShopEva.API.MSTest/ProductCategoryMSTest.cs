@@ -34,7 +34,7 @@ namespace ShopEva.API.MSTest
 
 
         [TestMethod]
-        public void GetAll_ProductCategory()
+        public async Task GetAll_ProductCategory()
         {
             int status = 1; // Sample status
             string keyword = ""; // Sample keyword
@@ -44,7 +44,7 @@ namespace ShopEva.API.MSTest
             _mockRepository.Setup(m => m.GetAll(null)).Returns(_listProductCategory);
 
 
-            var result = _productCategoryService.GetAll(status, keyword, orderBy, orderType);
+            var result = await _productCategoryService.GetAllAsync(status, keyword, orderBy, orderType);
 
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.IsNotNull(result, "Returned list should not be null.");
             Microsoft.VisualStudio.TestTools.UnitTesting.Assert.AreEqual(5, result.Count(), $"Expected count: {5}. Actual count: {result.Count()}");

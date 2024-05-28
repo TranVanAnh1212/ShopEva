@@ -5,6 +5,7 @@
         function ($scope, $state, $stateParams, CommonService, CRUDService, NotifyService) {
             var vm = $scope;
 
+            
             vm.ProductID = $stateParams.id;
 
             vm.Saved = false;
@@ -16,11 +17,59 @@
             vm.Product_Status;
             vm.submitted = false;
             vm.Category;
+            vm.CategoryShow = '';
             vm.CategoryList = [];
-            vm.GetSEOTitle = GetSEOTitle;
+            vm.CategoryListChildrent1 = [];
+            vm.Brands = [];
+            vm.Brand;
             vm.SaveAdd = SaveAdd;
             vm.Edit = Edit;
+            vm.SelectedCategory = '';
 
+            // FUNCTION 
+            vm.GetSEOTitle = GetSEOTitle;
+            vm.GetChildrent = GetChildrent;
+            vm.ChoosecategorySubmit = ChooseCategorySubmit;
+
+            function ChooseCategorySubmit() {
+                vm.SelectedCategory = vm.CategoryShow;
+
+                $('#productCategoryModal').modal('hide');
+            }
+
+            var name_root = '';
+            var name_child_1 = '';
+            var name_child_2 = '';
+            function GetChildrent(prodCateg, parentID, index) {
+                if (index == 1) {
+                    name_root = prodCateg.name;
+                    vm.CategoryShow = name_root;
+
+                    //$(`#prodCate-root-${parentID}`).on('click', function () {
+                    //    $(this).addClass('selected-item');
+                    //})
+                }
+
+                if (index == 2) {
+                    name_child_1 = prodCateg.name;
+                    vm.CategoryShow = `${name_root} > ${name_child_1}`;
+                }
+
+                var config = {
+                    params: {
+                        id: parentID,
+                        index: index
+                    }
+                }
+
+                CRUDService.get('/api/ProductCategoryAPI/get-all-by-parent-id', config, function (res) {
+                    if (index == 1) {
+                        vm.CategoryListChildrent1 = res.data.result;
+                    }
+                }, function (err) {
+                    NotifyService.error(err.message);
+                })
+            }
 
             (function Init() {
                 if (vm.ProductID) {
@@ -36,6 +85,8 @@
             }
 
             function SaveAdd(invalid) {
+                debugger
+
                 vm.submitted = invalid;
 
                 if (vm.submitted) return;
@@ -98,10 +149,10 @@
                 });
             }
 
-            function GetCategory() {
-                CRUDService.get('/api/ProductCategoryAPI/get_parent', null, (result) => {
-                    //console.log(result);
-                    vm.CategoryList = result.data.result;
+            function GetCategory(index) {
+                CRUDService.get(`/api/ProductCategoryAPI/getall?status=1&page=1&order_type=ASC&index=${index}`, null, (result) => {
+                    console.log(result);
+                    vm.CategoryList = result.data.result.data;
                 }, (err) => {
                     NotifyService.Shows('error', 'Cannot get data, an error occurred!');
                 });
@@ -128,8 +179,17 @@
                 });
             }
 
+            function GetBrand() {
+                CRUDService.get('/api/BrandAPI/get_all?status=1&order_by=name&order_type=ASC&page=1&page_size=20', null, function (res) {
+                    vm.Brands = res.data.result.data;
+                }, function (err) {
+                    NotifyService.Shows('error', 'Cannot get data, an error occurred!');
+                });
+            }
+
             GetStatus();
-            GetCategory();
+            GetCategory(0);
+            GetBrand();
         }]);
 
 })(angular.module('ShopEva.Product'));

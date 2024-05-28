@@ -12,7 +12,8 @@
             'ngCkeditor',
             'angular-jwt',
             'ngResource',
-            'ngCookies'
+            'ngCookies',
+            'angular-price-format'
         ]).config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
             // Thay đổi màu sắc của loading bar
             cfpLoadingBarProvider.includeSpinner = true;

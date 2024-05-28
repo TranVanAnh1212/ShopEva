@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using ShopEva.Data.Contexts;
@@ -11,9 +12,11 @@ using ShopEva.Data.Contexts;
 namespace ShopEva.Data.Migrations
 {
     [DbContext(typeof(ShopEvaDbContext))]
-    partial class ShopEvaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240429023747_ProductCategory_Renam_index_to_categoIndex")]
+    partial class ProductCategory_Renam_index_to_categoIndex
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

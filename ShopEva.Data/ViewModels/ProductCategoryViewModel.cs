@@ -26,7 +26,6 @@ namespace ShopEva.Data.ViewModels
         public string? MetaKeyWord { get; set; }
         public string? MetaDescription { get; set; }
         public int Status { get; set; }
-        [NotMapped()]
-        public int Index { get; set; }
+        public int CategIndex { get; set; }
     }
 }

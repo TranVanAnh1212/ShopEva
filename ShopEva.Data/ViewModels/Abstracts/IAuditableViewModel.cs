@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShopEva.Data.ViewModels.Abstracts
 {
-    public interface IAuditable
+    public interface IAuditableViewModel
     {
         DateTime? CreatedDate { get; set; }
         Guid? CreatedBy { get; set; }

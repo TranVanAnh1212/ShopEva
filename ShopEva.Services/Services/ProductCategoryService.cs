@@ -16,8 +16,27 @@ namespace ShopEva.Services.Services
             _unitOfWork = unitOfWork;
         }
 
-        public ProductCategory Add(ProductCategory pc)
+        public async Task<ProductCategory> Add(ProductCategory pc)
         {
+            if (pc.ParentID == null)
+            {
+                pc.CategIndex = 0;
+            }
+            else
+            {
+                int CategIndex = 1;
+                ProductCategory? parent = await GetByIdAsync(pc.ParentID.Value);
+                while (parent != null && parent.ParentID != null)
+                {
+                    CategIndex++;
+
+                    parent = await GetByIdAsync(parent.ParentID.Value);
+
+                }
+
+                pc.CategIndex = CategIndex;
+            }
+
             return _productCategoryRepository.Add(pc);
         }
 
@@ -26,13 +45,18 @@ namespace ShopEva.Services.Services
             return _productCategoryRepository.Delete(id);
         }
 
-        public async Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword, string? order_by, string? order_type)
+        public async Task<IEnumerable<ProductCategory>> GetAllAsync(int status, string? keyword, string? order_by, string? order_type, int index)
         {
             var product_category_list = await _productCategoryRepository.GetAllAsync();
 
             if (!string.IsNullOrEmpty(keyword))
             {
                 product_category_list = product_category_list.Where(x => x.Name.Contains(keyword));
+            }
+
+            if ( index >= 0)
+            {
+                product_category_list = product_category_list.Where(x => x.CategIndex == index);
             }
 
             if (status >= 0)
@@ -50,13 +74,6 @@ namespace ShopEva.Services.Services
                             product_category_list = product_category_list.OrderBy(x => x.Name.ToLower());
                             break;
                     }
-
-                    int index_asc = 1;
-                    foreach (var item in product_category_list)
-                    {
-                        item.Index = index_asc;
-                        index_asc++;
-                    }
                     break;
                 case "DESC":
                     switch (order_by)
@@ -65,14 +82,6 @@ namespace ShopEva.Services.Services
                             product_category_list = product_category_list.OrderByDescending(x => x.Name.ToLower());
                             break;
                     }
-
-                    int index_desc = product_category_list.Count();
-                    foreach (var item in product_category_list)
-                    {
-                        item.Index = index_desc;
-                        index_desc--;
-                    }
-
                     break;
                 default:
                     switch (order_by)
@@ -82,12 +91,6 @@ namespace ShopEva.Services.Services
                             break;
                     }
 
-                    int index = 1;
-                    foreach (var item in product_category_list)
-                    {
-                        item.Index = index;
-                        index++;
-                    }
                     break;
             }
             #endregion
@@ -95,9 +98,9 @@ namespace ShopEva.Services.Services
             return product_category_list;
         }
 
-        public Task<IEnumerable<ProductCategory>> GetAllByParentId(Guid parentId)
+        public async Task<IEnumerable<ProductCategory>> GetAllByParentID(Guid? parentID, int index)
         {
-            throw new NotImplementedException();
+            return await _productCategoryRepository.GetManyAsync(x => x.ParentID == parentID && x.CategIndex == index && x.Status == 1);
         }
 
         public async Task<ProductCategory> GetByIdAsync(Guid id)

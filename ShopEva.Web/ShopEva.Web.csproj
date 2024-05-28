@@ -463,6 +463,9 @@
     <None Include="wwwroot\lib\NgCkEditor\ng-ckeditor.js" />
     <None Include="wwwroot\lib\NgCkEditor\ng-ckeditor.min.js" />
     <None Include="wwwroot\lib\NgCkEditor\ng-ckeditor.min.map" />
+    <None Include="wwwroot\lib\ToastJs\dist\js\Toast-ES6.js" />
+    <None Include="wwwroot\lib\ToastJs\dist\js\Toast.js" />
+    <None Include="wwwroot\lib\ToastJs\dist\js\Toast.min.js" />
     <None Include="wwwroot\lib\vendor\bootstrap\js\bootstrap.bundle.js" />
     <None Include="wwwroot\lib\vendor\bootstrap\js\bootstrap.bundle.js.map" />
     <None Include="wwwroot\lib\vendor\bootstrap\js\bootstrap.bundle.min.js" />

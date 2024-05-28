@@ -29,7 +29,7 @@
                 controller: 'LoginPageController'
             });
 
-        $urlRouterProvider.otherwise('/Login');
+        $urlRouterProvider.otherwise('/login');
     }
 
     function configAuthentication($httpProvider) {

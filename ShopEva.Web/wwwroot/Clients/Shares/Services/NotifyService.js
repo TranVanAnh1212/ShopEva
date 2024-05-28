@@ -59,12 +59,20 @@
             toastr.info(info)
         }
 
+        function ToastJS(type, msg) {
+            new Toast({
+                message: msg,
+                type: type
+            });
+        }
+
         return {
             Shows: Shows,
             Success: Success,
             Error: Error,
             Warning: Warning,
             Info: Info,
+            ToastJS: ToastJS
         }
     }
 })(angular.module('ShopEva.Common'))

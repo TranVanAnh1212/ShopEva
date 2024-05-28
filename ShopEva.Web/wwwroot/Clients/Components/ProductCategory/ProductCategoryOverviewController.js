@@ -107,9 +107,9 @@
 
                     localStorage.setItem('ls.ProductCategory', JSON.stringify(vm.ProductCategory));
 
-                    NotifyService.Shows('success', 'Add new successfully.');
+                    NotifyService.ToastJS('success', 'Add new successfully.');
                 }, (err) => {
-                    NotifyService.Shows('error', 'Cannot create, some wrong...');
+                    NotifyService.ToastJS('error', 'Cannot create, some wrong...');
                 });
             else
                 CRUDService.put('/api/ProductCategoryAPI/update', vm.ProductCategory, (result) => {
@@ -127,10 +127,10 @@
 
                         localStorage.setItem('ls.ProductCategory', JSON.stringify(vm.ProductCategory));
 
-                        NotifyService.Shows('success', 'Update product category successfully!');
+                        NotifyService.ToastJS('success', 'Update product category successfully!');
                     }
                 }, (err) => {
-                    NotifyService.Shows('error', 'Cannot create, some wrong...');
+                    NotifyService.ToastJS('error', 'Cannot create, some wrong...');
                 });
         }
 
